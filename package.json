@@ -1,0 +1,29 @@
+{
+    "name": "api-rest-with-clean-architecture",
+    "version": "1.0.0",
+    "description": "API REST para aplicativos de lista de tarefas",
+    "main": "src/index.ts",
+    "scripts": {
+        "build": "tsc",
+        "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "Ygor Evaldt",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.14.10",
+        "@types/uuid": "^10.0.0",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.2.2",
+        "ts-node-dev": "^2.0.0",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.5.3"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.16.2",
+        "prisma": "^5.16.2",
+        "uuid": "^10.0.0"
+    }
+}
