@@ -8,7 +8,9 @@ describe('create', () => {
 
     beforeAll(() => {
         const userPrismaRepository = new PrismaRepository();
-        create = new UserModule(userPrismaRepository).usecase.create;
+        const userModule = new UserModule(userPrismaRepository);
+
+        create = userModule.usecase.create;
     });
 
     it('should create a new user', async () => {
