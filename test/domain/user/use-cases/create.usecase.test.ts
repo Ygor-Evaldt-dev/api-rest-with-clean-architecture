@@ -18,7 +18,7 @@ describe('create', () => {
 
     it('should throw error if user is already registred', async () => {
         const user = new User('teste@gmail.com', 'any_password');
-        await expect(create.execute(user)).rejects.toThrow();
+        await expect(create.execute(user)).rejects.toThrow()
     });
 
 });
