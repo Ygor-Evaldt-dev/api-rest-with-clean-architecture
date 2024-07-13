@@ -1,7 +1,7 @@
 import { IService } from "@/domain/shared/service.interface";
 import { User } from "../user.entity";
-import { IUserRepository } from "@/domain/shared/ports/user-repository.interface";
-import { IEncrypter } from "@/domain/shared/ports/encrypter.interface";
+import { IUserRepository } from "@/domain/ports/user-repository.interface";
+import { IEncrypter } from "@/domain/ports/encrypter.interface";
 
 export class Create implements IService<User, void> {
     constructor(

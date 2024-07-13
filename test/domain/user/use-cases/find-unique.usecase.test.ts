@@ -1,15 +1,12 @@
-import { PrismaRepository } from "@/infra/repositories/user/prisma.repository";
-import { UserModule } from "@/domain/user/user.module";
 import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
+import { getTestModule } from "../get-test-module";
 
 describe('find unique', () => {
     let findUnique: FindUnique;
 
     beforeAll(() => {
-        const userPrismaRepository = new PrismaRepository();
-        const userModule = new UserModule(userPrismaRepository);
-
-        findUnique = userModule.usecase.findUnique;
+        const module = getTestModule();
+        findUnique = module.usecase.findUnique;
     });
 
     it('should return an user registred', async () => {

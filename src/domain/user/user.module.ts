@@ -1,8 +1,8 @@
-import { IUserRepository } from '@/domain/shared/ports/user-repository.interface';
+import { IUserRepository } from '@/domain/ports/user-repository.interface';
 import { Usecase } from './types/usecase';
 import { Create } from './use-cases/create.usecase';
 import { FindUnique } from './use-cases/find-unique.usecase';
-import { IEncrypter } from '../shared/ports/encrypter.interface';
+import { IEncrypter } from '../ports/encrypter.interface';
 
 export class UserModule {
     readonly usecase: Usecase;

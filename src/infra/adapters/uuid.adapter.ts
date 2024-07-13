@@ -1,6 +1,6 @@
 import { v4 as uuidv4, validate } from "uuid";
 
-import { IUuid } from "@/domain/shared/ports/uuid.interface";
+import { IUuid } from "@/domain/ports/uuid.interface";
 
 export class UuidAdapter implements IUuid {
     generate(): string {

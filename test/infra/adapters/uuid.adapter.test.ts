@@ -1,4 +1,4 @@
-import { IUuid } from "@/domain/shared/ports/uuid.interface";
+import { IUuid } from "@/domain/ports/uuid.interface";
 import { UuidAdapter } from "@/infra/adapters/uuid.adapter";
 
 describe('uuid', () => {

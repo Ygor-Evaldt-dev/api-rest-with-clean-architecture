@@ -1,4 +1,4 @@
-import { IUserRepository } from "@/domain/shared/ports/user-repository.interface";
+import { IUserRepository } from "@/domain/ports/user-repository.interface";
 import { User } from "@/domain/user/user.entity";
 import { PrismaClient } from "@prisma/client";
 import { UserDto } from "./user-dto";
@@ -22,6 +22,12 @@ export class PrismaRepository implements IUserRepository {
         });
 
         return user ? this.fromDatabase(user) : null;
+    }
+
+    async delete(id: string): Promise<void> {
+        await this.prisma.user.delete({
+            where: { id }
+        });
     }
 
     private fromDatabase({

@@ -1,5 +1,5 @@
 import { hash, compare } from 'bcrypt';
-import { IEncrypter } from "@/domain/shared/ports/encrypter.interface";
+import { IEncrypter } from "@/domain/ports/encrypter.interface";
 
 export class BcryptAdapter implements IEncrypter {
     private readonly saltRounds: number = 12;

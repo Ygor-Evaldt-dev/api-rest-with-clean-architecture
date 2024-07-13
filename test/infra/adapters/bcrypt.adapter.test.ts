@@ -1,4 +1,4 @@
-import { IEncrypter } from "@/domain/shared/ports/encrypter.interface";
+import { IEncrypter } from "@/domain/ports/encrypter.interface";
 import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
 
 describe('encrypt password', () => {
