@@ -12,6 +12,7 @@
     "author": "Ygor Evaldt",
     "license": "ISC",
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/jest": "^29.5.12",
         "@types/node": "^20.14.10",
         "@types/uuid": "^10.0.0",
@@ -23,6 +24,7 @@
     },
     "dependencies": {
         "@prisma/client": "^5.16.2",
+        "bcrypt": "^5.1.1",
         "prisma": "^5.16.2",
         "uuid": "^10.0.0"
     }
