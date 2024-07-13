@@ -1,8 +1,4 @@
-export function sum(
-    a: number,
-    b: number
-): number {
-    return a + b;
-}
+import { server } from '@/server';
+import { UserRoute } from '@/presentation/routes/user.route';
 
-console.log(sum(1, 1))
+new UserRoute(server);

@@ -1,11 +1,11 @@
 import { UuidAdapter } from "@/infra/adapters/uuid.adapter";
 
-export class Id {
-    private readonly uuid = new UuidAdapter();
+const uuid = new UuidAdapter();
 
+export class Id {
     constructor(
-        readonly value: string = this.uuid.generate()
+        readonly value: string = uuid.generate()
     ) {
-        if (!this.uuid.validate(value)) throw new Error("Id inválido");
+        if (!uuid.validate(value)) throw new Error("Id inválido");
     }
 }
