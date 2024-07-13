@@ -16,12 +16,25 @@ export class PrismaRepository implements IUserRepository {
         });
     }
 
-    async findUnique(email: string): Promise<User | null> {
+    async findUnique(id?: string, email?: string): Promise<User | null> {
         const user = await this.prisma.user.findUnique({
-            where: { email }
+            where: { id, email }
         });
 
         return user ? this.fromDatabase(user) : null;
+    }
+
+    async update(user: User): Promise<void> {
+        await this.prisma.user.update({
+            where: {
+                id: user.id.value
+            },
+            data: {
+                email: user.email,
+                password: user.password!,
+                name: user.name
+            }
+        })
     }
 
     async delete(id: string): Promise<void> {

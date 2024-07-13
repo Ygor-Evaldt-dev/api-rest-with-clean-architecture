@@ -1,7 +1,7 @@
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
 import { IService } from "@/domain/shared/service.interface";
 
-export class Delete implements IService<string, void> {
+export class Remove implements IService<string, void> {
     constructor(
         private readonly reporisoty: IUserRepository
     ) { }
