@@ -2,18 +2,17 @@ import { IUserRepository } from '@/domain/shared/ports/user-repository.interface
 import { Usecase } from './types/usecase';
 import { Create } from './use-cases/create.usecase';
 import { FindUnique } from './use-cases/find-unique.usecase';
+import { IEncrypter } from '../shared/ports/encrypter.interface';
 
 export class UserModule {
-    private readonly repository: IUserRepository;
     readonly usecase: Usecase;
 
     constructor(
-        repository: IUserRepository
+        private readonly repository: IUserRepository,
+        private readonly encrypter: IEncrypter
     ) {
-        this.repository = repository;
-
         this.usecase = {
-            create: new Create(this.repository),
+            create: new Create(this.repository, this.encrypter),
             findUnique: new FindUnique(this.repository)
         }
     }

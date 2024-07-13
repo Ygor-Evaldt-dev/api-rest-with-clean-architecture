@@ -1,20 +1,22 @@
 import { User } from "@/domain/user/user.entity";
 import { PrismaRepository } from "@/infra/repositories/user/prisma.repository";
-import { UserModule } from "@/domain/user/user.module";
 import { Create } from "@/domain/user/use-cases/create.usecase";
+import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
+import { UserModule } from "@/domain/user/user.module";
 
 describe('create', () => {
     let create: Create;
 
     beforeAll(() => {
         const userPrismaRepository = new PrismaRepository();
-        const userModule = new UserModule(userPrismaRepository);
+        const encrypter = new BcryptAdapter();
+        const userModule = new UserModule(userPrismaRepository, encrypter);
 
         create = userModule.usecase.create;
     });
 
     it('should create a new user', async () => {
-        const user = new User('teste@gmail.com', 'senha@teste');
+        const user = new User('teste@gmail.com', 'Senha@test3');
         await expect(create.execute(user)).resolves.not.toThrow();
     });
 
