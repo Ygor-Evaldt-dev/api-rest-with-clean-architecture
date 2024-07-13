@@ -1,10 +1,12 @@
 import { Entity } from "@/domain/shared/entity";
+import { Email } from "@/domain/shared/value-objects/email";
+import { Name } from "@/domain/shared/value-objects/Name";
 import { Params } from '@/domain/user/entity/params';
 
 export class User extends Entity {
-    readonly email: string;
+    readonly email: Email;
     readonly password?: string;
-    readonly name?: string;
+    readonly name?: Name;
 
     constructor({
         id,
@@ -14,8 +16,8 @@ export class User extends Entity {
     }: Params) {
         super(id!)
 
-        this.email = email;
+        this.email = new Email(email);
         this.password = password;
-        this.name = name;
+        this.name = name ? new Name(name) : undefined;
     }
 }

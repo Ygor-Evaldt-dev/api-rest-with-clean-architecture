@@ -10,7 +10,7 @@ export class PrismaRepository implements IUserRepository {
         await this.prisma.user.create({
             data: {
                 id: user.id.value,
-                email: user.email,
+                email: user.email.complete.toLowerCase(),
                 password: user.password!
             }
         });
@@ -33,9 +33,9 @@ export class PrismaRepository implements IUserRepository {
                 id: user.id.value
             },
             data: {
-                email: user.email,
+                email: user.email.complete.toLowerCase(),
                 password: user.password!,
-                name: user.name
+                name: user.name?.complete.toLowerCase()
             }
         })
     }

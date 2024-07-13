@@ -13,7 +13,9 @@ export class UserRoute {
         const encrypter = new BcryptAdapter();
         const userModule = new UserModule(repository, encrypter);
 
-        const createService = new CreateService(userModule.usecase.create);
+        const { create, findUnique, update, remove } = userModule.usecase;
+
+        const createService = new CreateService(create, findUnique);
 
         new CreateController(this.server, createService);
     }
