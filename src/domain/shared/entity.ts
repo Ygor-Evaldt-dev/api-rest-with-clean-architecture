@@ -1,6 +1,6 @@
 import { Id } from "@/domain/shared/value-objects/id";
 
-export default class Entity {
+export class Entity {
     readonly id: Id;
 
     constructor(id: string) {

@@ -1,5 +1,5 @@
 import { IService } from "@/domain/shared/service.interface";
-import { User } from "../user.entity";
+import { User } from "@/domain/user/entity/user.entity";
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
 import { IEncrypter } from "@/domain/ports/encrypter.interface";
 
