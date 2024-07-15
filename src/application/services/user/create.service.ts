@@ -18,8 +18,9 @@ export class CreateService implements IService<CreateUserDto, User> {
         const user = new User(dto);
         await this.create.execute(user);
 
-        return Object.assign(user, {
+        const userWithOutPassword = Object.assign(user, {
             password: undefined
         });
+        return userWithOutPassword
     }
 }
