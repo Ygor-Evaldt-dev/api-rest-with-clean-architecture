@@ -1,9 +1,9 @@
-import { ConflictException } from "@/application/common/exceptions/conflict.exeption";
+import { ConflictException } from "@/common/exceptions/conflict.exeption";
 import { CreateService } from "@/application/services/user/create.service";
 import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
 import { IService } from "@/domain/shared/service.interface";
 import { User } from "@/domain/user/entity/user.entity";
-import { HttpStatus } from "@/presentation/utils/http-status";
+import { HttpStatus } from "@/common/utils/http-status";
 import { Express, Request, Response } from "express";
 
 export class CreateController {
