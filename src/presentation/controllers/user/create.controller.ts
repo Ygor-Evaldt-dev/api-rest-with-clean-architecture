@@ -1,4 +1,4 @@
-import { ConflictException } from "@/common/exceptions/conflict.exeption";
+import { ConflictException } from "@/common/exceptions/conflict.exception";
 import { CreateService } from "@/application/services/user/create.service";
 import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
 import { IService } from "@/domain/shared/service.interface";

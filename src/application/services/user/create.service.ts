@@ -3,7 +3,7 @@ import { User } from "@/domain/user/entity/user.entity";
 import { Create } from "@/domain/user/use-cases/create.usecase";
 import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
 import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
-import { ConflictException } from "@/common/exceptions/conflict.exeption";
+import { ConflictException } from "@/common/exceptions/conflict.exception";
 
 export class CreateService implements IService<CreateUserDto, User> {
     constructor(

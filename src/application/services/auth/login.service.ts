@@ -8,7 +8,7 @@ import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
 import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
 
-export class loginService implements IService<LoginDto, TokenDto> {
+export class LoginService implements IService<LoginDto, TokenDto> {
     constructor(
         private readonly findUnique: FindUnique,
         private readonly encrypter: IEncrypter,
@@ -27,12 +27,12 @@ export class loginService implements IService<LoginDto, TokenDto> {
         if (!isPasswordValid)
             throw new BadRequestException('Senha inválida');
 
-        const token = this.tokenProvider.generate({
+        const accessToken = this.tokenProvider.generate({
             sub: user.id.value,
             email: user.email.complete
         });
 
-        return ({ token });
+        return ({ accessToken });
     }
 
 }
