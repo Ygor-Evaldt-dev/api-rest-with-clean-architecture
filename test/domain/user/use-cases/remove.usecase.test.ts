@@ -1,27 +1,19 @@
 import { getTestModule } from "../get-test-module";
-import { Remove } from "../../../../src/domain/user/use-cases/remove.usecase";
-import { User } from "../../../../src/domain/user//entity/user.entity";
-import { UserModule } from "../../../../src/domain/user/user.module";
+import { User } from "@/domain/user/entity/user.entity";
 
 describe('remove', () => {
-    let module: UserModule;
-    let remove: Remove;
+    const { createService, removeService } = getTestModule();
+    let id = '';
 
     beforeAll(async () => {
-        module = getTestModule();
-        remove = module.usecase.remove;
-    });
+        const user: User = await createService.execute({
+            email: 'teste@email.com',
+            password: 'An1Passw0rd'
+        });
+        id = user.id.value
+    })
 
     it('should delete an existing user', async () => {
-        const id = '355a45ae-e752-470d-9a14-15a165f5d381';
-        const user = new User({
-            id,
-            email: 'new_user@gmail.com',
-            password: 'new_user_pass'
-        });
-
-        await module.usecase.create.execute(user);
-
-        await expect(remove.execute(id)).resolves.not.toThrow();
+        await expect(removeService.execute(id)).resolves.not.toThrow();
     });
 });

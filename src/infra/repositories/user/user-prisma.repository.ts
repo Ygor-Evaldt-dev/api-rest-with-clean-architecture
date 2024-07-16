@@ -3,7 +3,7 @@ import { User } from "@/domain/user//entity/user.entity";
 import { PrismaClient } from "@prisma/client";
 import { UserDto } from "./user-dto";
 
-export class PrismaRepository implements IUserRepository {
+export class UserPrismaRepository implements IUserRepository {
     private readonly prisma = new PrismaClient();
 
     async create(user: User): Promise<void> {

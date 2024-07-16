@@ -1,27 +1,21 @@
-import { FindUnique } from "../../../../src/domain/user/use-cases/find-unique.usecase";
 import { getTestModule } from "../get-test-module";
 
 describe('find unique', () => {
-    let findUnique: FindUnique;
-
-    beforeAll(() => {
-        const module = getTestModule();
-        findUnique = module.usecase.findUnique;
-    });
+    const { findService } = getTestModule();
+    const email = 'admin@gmail.com'
 
     it('should return an user registred', async () => {
-        const email = 'teste@gmail.com';
-        const user = await findUnique.execute({ email });
+        const user = await findService.execute({ email });
 
         expect(user).toBeDefined();
         expect(user?.email.complete).toBe(email);
     });
 
-    it('should return null if user if not registred', async () => {
-        const user = await findUnique.execute({
+    it('should throw not found exception if user if not registred', async () => {
+        const exec = async () => await findService.execute({
             email: 'any_email@gmail.com'
         });
-        expect(user).toBeNull();
+        await expect(exec()).rejects.toThrow('Usuário não cadastrado');
     });
 
 });

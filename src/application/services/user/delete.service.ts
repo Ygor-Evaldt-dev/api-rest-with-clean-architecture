@@ -3,7 +3,7 @@ import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { Remove } from "@/domain/user/use-cases/remove.usecase";
 
-export class RemoveService implements IService<string, void> {
+export class DeleteService implements IService<string, void> {
     constructor(
         private readonly findUnique: FindUnique,
         private readonly remove: Remove

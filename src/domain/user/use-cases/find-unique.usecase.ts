@@ -16,6 +16,7 @@ export class FindUnique implements IService<Params, User | null> {
         id,
         email
     }: Params): Promise<User | null> {
+        console.log('email', email)
         return await this.repository.findUnique({ id, email });
     }
 }

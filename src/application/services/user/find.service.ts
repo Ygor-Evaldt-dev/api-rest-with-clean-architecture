@@ -4,15 +4,23 @@ import { User } from "@/domain/user/entity/user.entity";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { removePassword } from "@/application/utils/remove-password";
 
-export class FindService implements IService<string, User> {
+type Params = {
+    id?: string,
+    email?: string
+}
+
+export class FindService implements IService<Params, User> {
     constructor(
         private readonly usecase: FindUnique
     ) { }
 
-    async execute(id: string): Promise<User> {
-        const user = await this.usecase.execute({ id });
+    async execute({
+        id,
+        email
+    }: Params): Promise<User> {
+        const user = await this.usecase.execute({ id, email });
         if (user === null)
-            throw new NotFoundException('Usuario não cadastrado');
+            throw new NotFoundException('Usuário não cadastrado');
 
         return removePassword(user);
     }

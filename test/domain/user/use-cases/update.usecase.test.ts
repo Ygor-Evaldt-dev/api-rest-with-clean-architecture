@@ -1,22 +1,26 @@
-import { User } from "../../../../src/domain/user//entity/user.entity";
 import { getTestModule } from "../get-test-module";
-import { Update } from "../../../../src/domain/user/use-cases/update.usecase";
+import { User } from "@/domain/user/entity/user.entity";
 
 describe('update', () => {
-    let update: Update;
+    const { createService, updateService, removeService } = getTestModule();
+    let user: User;
 
-    beforeAll(() => {
-        const module = getTestModule();
-        update = module.usecase.update;
+    beforeAll(async () => {
+        user = await createService.execute({
+            email: 'teste_update@email.com',
+            password: 'T3st3@update'
+        });
     });
 
-    it('should update an exists user', async () => {
-        const user = new User({
-            id: '2d868fd5-37f8-491c-be04-122125f75eb2',
-            email: 'teste_update@gmail.com',
-            name: 'teste'
-        });
+    afterAll(async () => {
+        await removeService.execute(user.id.value);
+    })
 
-        await expect(update.execute(user)).resolves.not.toThrow();
+    it('should update an exists user', async () => {
+        const exec = async () => await updateService.execute({
+            id: user.id.value,
+            email: user.email.complete
+        })
+        await expect(exec()).resolves.not.toThrow();
     });
 });

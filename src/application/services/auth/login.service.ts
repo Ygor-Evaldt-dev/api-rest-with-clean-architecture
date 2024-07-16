@@ -5,11 +5,11 @@ import { IEncrypter } from "@/domain/ports/encrypter.interface";
 import { ITokenProvider } from "@/domain/ports/token-provider.interface";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
-import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
+import { IUserRepository } from "@/domain/ports/user-repository.interface";
 
 export class LoginService implements IService<LoginDto, TokenDto> {
     constructor(
-        private readonly findUnique: FindUnique,
+        private readonly userRepository: IUserRepository,
         private readonly encrypter: IEncrypter,
         private readonly tokenProvider: ITokenProvider
     ) { }
@@ -18,7 +18,7 @@ export class LoginService implements IService<LoginDto, TokenDto> {
         email,
         password
     }: LoginDto): Promise<TokenDto> {
-        const user = await this.findUnique.execute({ email });
+        const user = await this.userRepository.findUnique({ email });
         if (!user)
             throw new NotFoundException('Usuário não cadastrado');
 

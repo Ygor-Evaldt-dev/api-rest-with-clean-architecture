@@ -2,12 +2,11 @@ import { ITokenProvider } from "@/domain/ports/token-provider.interface";
 import { HttpStatus } from "@/common/utils/http-status";
 import { Request, Response, NextFunction } from "express";
 import { UserToken } from "./user-token";
-import { IService } from "@/domain/shared/service.interface";
-import { User } from "@/domain/user/entity/user.entity";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
+import { FindService } from "@/application/services/user/find.service";
 
 export function authMiddleware(
-    service: IService<string, User>,
+    findService: FindService,
     tokenProvider: ITokenProvider
 ) {
     return async function (req: Request, res: Response, next: NextFunction) {
@@ -20,7 +19,7 @@ export function authMiddleware(
             }
 
             const userToken = tokenProvider.validate(authorization.split(" ")[1]) as UserToken;
-            const user = await service.execute(userToken.sub);
+            const user = await findService.execute({ id: userToken.sub });
 
             (req as any).user = user;
             next();
