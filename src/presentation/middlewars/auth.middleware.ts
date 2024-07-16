@@ -1,11 +1,13 @@
 import { ITokenProvider } from "@/domain/ports/token-provider.interface";
 import { HttpStatus } from "@/common/utils/http-status";
 import { Request, Response, NextFunction } from "express";
-import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
 import { UserToken } from "./user-token";
+import { IService } from "@/domain/shared/service.interface";
+import { User } from "@/domain/user/entity/user.entity";
+import { NotFoundException } from "@/common/exceptions/not-found.exception";
 
 export function authMiddleware(
-    findUnique: FindUnique,
+    service: IService<string, User>,
     tokenProvider: ITokenProvider
 ) {
     return async function (req: Request, res: Response, next: NextFunction) {
@@ -18,16 +20,15 @@ export function authMiddleware(
             }
 
             const userToken = tokenProvider.validate(authorization.split(" ")[1]) as UserToken;
-            const user = await findUnique.execute({ id: userToken.sub });
-            if (user === null) {
-                res.status(HttpStatus.NOT_FOUND).send('Usuário não cadastrado');
-                return;
-            }
+            const user = await service.execute(userToken.sub);
 
             (req as any).user = user;
             next();
-        } catch (error: any) {
-            res.sendStatus(HttpStatus.UNAUTHORIZED);
+        } catch (error: NotFoundException | any) {
+            if (error instanceof NotFoundException)
+                res.status(HttpStatus.NOT_FOUND).send(error.message);
+            else
+                res.sendStatus(HttpStatus.UNAUTHORIZED);
         }
     }
 }
