@@ -6,7 +6,8 @@
     "scripts": {
         "build": "tsc",
         "dev": "ts-node-dev --respawn --transpile-only --project tsconfig.json -r tsconfig-paths/register src/index.ts",
-        "test": "jest"
+        "test": "jest",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
     },
     "keywords": [],
     "author": "Ygor Evaldt",

@@ -5,9 +5,9 @@ import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
 import { UserPrismaRepository } from "@/infra/repositories/user/user-prisma.repository";
 
 export function getTestModule() {
-    const repository: IUserRepository = new UserPrismaRepository();
-    const encrypter: IEncrypter = new BcryptAdapter();
-    const module = new UserModule(repository, encrypter);
+	const repository: IUserRepository = new UserPrismaRepository();
+	const encrypter: IEncrypter = new BcryptAdapter();
+	const module = new UserModule(repository, encrypter);
 
-    return module;
+	return module;
 }

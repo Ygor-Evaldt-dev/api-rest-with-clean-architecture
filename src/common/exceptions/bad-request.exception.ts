@@ -1,5 +1,5 @@
 export class BadRequestException extends Error {
-    constructor(name: string) {
-        super(name);
-    }
+	constructor(name: string) {
+		super(name);
+	}
 }

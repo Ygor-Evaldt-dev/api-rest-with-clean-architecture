@@ -3,20 +3,14 @@ import { IService } from "@/domain/shared/service.interface";
 import { User } from "@/domain/user//entity/user.entity";
 
 type Params = {
-    id?: string;
-    email?: string;
-}
+	id?: string;
+	email?: string;
+};
 
 export class FindUnique implements IService<Params, User | null> {
-    constructor(
-        private readonly repository: IUserRepository
-    ) { }
+	constructor(private readonly repository: IUserRepository) {}
 
-    async execute({
-        id,
-        email
-    }: Params): Promise<User | null> {
-        console.log('email', email)
-        return await this.repository.findUnique({ id, email });
-    }
+	async execute({ id, email }: Params): Promise<User | null> {
+		return await this.repository.findUnique({ id, email });
+	}
 }

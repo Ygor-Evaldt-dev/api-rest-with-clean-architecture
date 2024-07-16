@@ -8,33 +8,34 @@ import { removePassword } from "@/application/utils/remove-password";
 import { ConflictException } from "@/common/exceptions/conflict.exception";
 
 export class UpdateService implements IService<UpdateUserDto, User> {
-    constructor(
-        private readonly update: Update,
-        private readonly findUnique: FindUnique
-    ) { }
+	constructor(
+		private readonly update: Update,
+		private readonly findUnique: FindUnique
+	) {}
 
-    async execute(dto: UpdateUserDto): Promise<User> {
-        const existingUser = await this.findUnique.execute({
-            id: dto.id
-        });
+	async execute(dto: UpdateUserDto): Promise<User> {
+		const existingUser = await this.findUnique.execute({
+			id: dto.id
+		});
 
-        if (!existingUser)
-            throw new NotFoundException('Usuário não cadastrado');
+		if (!existingUser)
+			throw new NotFoundException("Usuário não cadastrado");
 
-        if (dto.email) {
-            const userWithSameEmail = await this.findUnique.execute({ email: dto.email });
+		if (dto.email) {
+			const userWithSameEmail = await this.findUnique.execute({
+				email: dto.email
+			});
 
-            if (userWithSameEmail?.different(existingUser))
-                throw new ConflictException('E-mail já cadastrado');
-        }
+			if (userWithSameEmail?.different(existingUser))
+				throw new ConflictException("E-mail já cadastrado");
+		}
 
-        const user = new User({
-            ...dto,
-            email: dto.email ?? existingUser.email.complete
-        });
-        await this.update.execute(user);
+		const user = new User({
+			...dto,
+			email: dto.email ?? existingUser.email.complete
+		});
+		await this.update.execute(user);
 
-        return removePassword(Object.assign(existingUser, user));
-    }
-
+		return removePassword(Object.assign(existingUser, user));
+	}
 }
