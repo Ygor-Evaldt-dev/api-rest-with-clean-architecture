@@ -1,5 +1,5 @@
-import { User } from "@/domain/user//entity/user.entity";
-import { Create } from "@/domain/user/use-cases/create.usecase";
+import { User } from "../../../../src/domain/user//entity/user.entity";
+import { Create } from "../../../../src/domain/user/use-cases/create.usecase";
 import { getTestModule } from "../get-test-module";
 
 describe('create', () => {

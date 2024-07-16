@@ -1,7 +1,6 @@
 import { IService } from "@/domain/shared/service.interface";
 import { LoginDto } from "./dtos/login.dto";
 import { TokenDto } from "./dtos/token.dto";
-import { User } from "@/domain/user/entity/user.entity";
 import { IEncrypter } from "@/domain/ports/encrypter.interface";
 import { ITokenProvider } from "@/domain/ports/token-provider.interface";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
@@ -19,7 +18,7 @@ export class LoginService implements IService<LoginDto, TokenDto> {
         email,
         password
     }: LoginDto): Promise<TokenDto> {
-        const user = await this.findUnique.execute(email);
+        const user = await this.findUnique.execute({ email });
         if (!user)
             throw new NotFoundException('Usuário não cadastrado');
 

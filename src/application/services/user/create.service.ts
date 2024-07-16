@@ -4,6 +4,7 @@ import { Create } from "@/domain/user/use-cases/create.usecase";
 import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
 import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
 import { ConflictException } from "@/common/exceptions/conflict.exception";
+import { removePassword } from "@/application/utils/remove-password";
 
 export class CreateService implements IService<CreateUserDto, User> {
     constructor(
@@ -12,15 +13,15 @@ export class CreateService implements IService<CreateUserDto, User> {
     ) { }
 
     async execute(dto: CreateUserDto): Promise<User> {
-        const alreadyRegistred = await this.findUnique.execute(dto.email);
+        const alreadyRegistred = await this.findUnique.execute({
+            email: dto.email
+        });
         if (alreadyRegistred) throw new ConflictException('E-mail já cadastrado');
 
         const user = new User(dto);
         await this.create.execute(user);
 
-        const userWithOutPassword = Object.assign(user, {
-            password: undefined
-        });
+        const userWithOutPassword = removePassword(user);
         return userWithOutPassword
     }
 }

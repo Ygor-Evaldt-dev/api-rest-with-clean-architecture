@@ -12,6 +12,6 @@ export class Entity {
     }
 
     different(entity: Entity): boolean {
-        return this.equals(entity);
+        return !this.equals(entity);
     }
 }

@@ -1,8 +1,8 @@
-import { IEncrypter } from "@/domain/ports/encrypter.interface";
-import { IUserRepository } from "@/domain/ports/user-repository.interface";
-import { UserModule } from "@/domain/user/user.module";
-import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
-import { PrismaRepository } from "@/infra/repositories/user/prisma.repository";
+import { IEncrypter } from "../../../src/domain/ports/encrypter.interface";
+import { IUserRepository } from "../../../src/domain/ports/user-repository.interface";
+import { UserModule } from "../../../src/domain/user/user.module";
+import { BcryptAdapter } from "../../../src/infra/adapters/bcrypt.adapter";
+import { PrismaRepository } from "../../../src/infra/repositories/user/prisma.repository";
 
 export function getTestModule() {
     const repository: IUserRepository = new PrismaRepository();

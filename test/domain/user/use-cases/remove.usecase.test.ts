@@ -1,7 +1,7 @@
 import { getTestModule } from "../get-test-module";
-import { Remove } from "@/domain/user/use-cases/remove.usecase";
-import { User } from "@/domain/user//entity/user.entity";
-import { UserModule } from "@/domain/user/user.module";
+import { Remove } from "../../../../src/domain/user/use-cases/remove.usecase";
+import { User } from "../../../../src/domain/user//entity/user.entity";
+import { UserModule } from "../../../../src/domain/user/user.module";
 
 describe('remove', () => {
     let module: UserModule;

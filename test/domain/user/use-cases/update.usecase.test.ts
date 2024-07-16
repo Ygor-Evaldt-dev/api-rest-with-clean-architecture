@@ -1,6 +1,6 @@
-import { User } from "@/domain/user//entity/user.entity";
+import { User } from "../../../../src/domain/user//entity/user.entity";
 import { getTestModule } from "../get-test-module";
-import { Update } from "@/domain/user/use-cases/update.usecase";
+import { Update } from "../../../../src/domain/user/use-cases/update.usecase";
 
 describe('update', () => {
     let update: Update;
@@ -17,9 +17,6 @@ describe('update', () => {
             name: 'teste'
         });
 
-        await expect(update.execute({
-            id: user.id.value,
-            user
-        })).resolves.not.toThrow();
+        await expect(update.execute(user)).resolves.not.toThrow();
     });
 });
