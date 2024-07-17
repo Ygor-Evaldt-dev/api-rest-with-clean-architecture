@@ -18,6 +18,18 @@ model User {
     email    String  @unique @map("email") @db.VarChar(150)
     password String  @map("senha") @db.VarChar(255)
     name     String? @map("nome") @db.VarChar(100)
+    tasks    Task[]
 
     @@map("usuario")
+}
+
+model Task {
+    id          String  @id @map("id") @db.Uuid
+    title       String  @map("titulo") @db.VarChar(50)
+    description String? @map("descricao") @db.VarChar(500)
+    status      String  @map("status") @db.VarChar(25)
+    userId      String  @map("id_usuario") @db.Uuid
+    user        User    @relation(fields: [userId], references: [id])
+
+    @@map("tarefa")
 }
