@@ -16,7 +16,7 @@ export class UserRoutes {
             createService,
             findService,
             updateService,
-            removeService
+            deleteService: removeService
         } = this.module;
 
         new CreateController(this.server, createService);
