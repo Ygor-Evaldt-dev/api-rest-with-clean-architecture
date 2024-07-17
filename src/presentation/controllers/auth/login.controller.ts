@@ -1,8 +1,6 @@
 import { Request, Response, Express } from "express";
-import { LoginDto } from "@/application/services/auth/dtos/login.dto";
-import { TokenDto } from "@/application/services/auth/dtos/token.dto";
+
 import { HttpStatus } from "@/common/utils/http-status";
-import { IService } from "@/domain/shared/service.interface";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { LoginService } from "@/application/services/auth/login.service";

@@ -1,14 +1,14 @@
 import { Request, Response, Express } from "express";
 
-import { IService } from "@/domain/shared/service.interface";
 import { HttpStatus } from "@/common/utils/http-status";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { ConflictException } from "@/common/exceptions/conflict.exception";
+import { DeleteService } from "@/application/services/user/delete.service";
 
 export class DeleteController {
     constructor(
         private readonly server: Express,
-        private readonly remove: IService<string, void>,
+        private readonly remove: DeleteService,
         private middlewares: any[]
     ) {
         this.server.delete("/user/:id", ...this.middlewares, async (req: Request, res: Response) => {
