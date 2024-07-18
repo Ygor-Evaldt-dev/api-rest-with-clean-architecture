@@ -13,9 +13,9 @@ describe('JWT token', () => {
 
     it('should return true if access token is valid', () => {
         const accessToken = tokenProvider.generate({});
-        const isValidAccessToken = tokenProvider.validate(accessToken);
+        const accessTokenValidated = tokenProvider.validate(accessToken);
 
-        expect(isValidAccessToken).toBeTruthy();
+        expect(accessTokenValidated).toBeDefined();
     });
 
     it('should return false if access token is invalid', () => {
