@@ -20,8 +20,11 @@ export class LoginController {
                     res.status(HttpStatus.NOT_FOUND).send(error.message);
                 else if (error instanceof BadRequestException)
                     res.status(HttpStatus.UNAUTHORIZED).send(error.message);
-                else
+                else {
                     res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                    console.error(error.message);
+                }
+
             }
         });
     }

@@ -6,29 +6,29 @@ import { ITokenProvider } from "@/domain/ports/token-provider.interface";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
+import { removePassword } from "@/application/utils/remove-password";
 
 export class LoginService implements IService<LoginDto, TokenDto> {
-	constructor(
-		private readonly userRepository: IUserRepository,
-		private readonly encrypter: IEncrypter,
-		private readonly tokenProvider: ITokenProvider
-	) {}
+    constructor(
+        private readonly userRepository: IUserRepository,
+        private readonly encrypter: IEncrypter,
+        private readonly tokenProvider: ITokenProvider
+    ) { }
 
-	async execute({ email, password }: LoginDto): Promise<TokenDto> {
-		const user = await this.userRepository.findUnique({ email });
-		if (!user) throw new NotFoundException("Usuário não cadastrado");
+    async execute({ email, password }: LoginDto): Promise<TokenDto> {
+        const user = await this.userRepository.findUnique({ email });
+        if (!user) throw new NotFoundException("Usuário não cadastrado");
 
-		const isPasswordValid = await this.encrypter.compare(
-			password,
-			user.password!
-		);
-		if (!isPasswordValid) throw new BadRequestException("Senha inválida");
+        const isPasswordValid = await this.encrypter.compare(
+            password,
+            user.password!
+        );
+        if (!isPasswordValid) throw new BadRequestException("Senha inválida");
 
-		const accessToken = this.tokenProvider.generate({
-			sub: user.id.value,
-			email: user.email.complete
-		});
+        const accessToken = this.tokenProvider.generate({
+            user: removePassword(user)
+        });
 
-		return { accessToken };
-	}
+        return { accessToken };
+    }
 }

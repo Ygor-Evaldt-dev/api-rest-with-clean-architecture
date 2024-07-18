@@ -14,6 +14,7 @@ export class FindController {
                 const response = await this.findService.execute({
                     id: req.params?.id
                 });
+
                 res.status(HttpStatus.OK).json(response);
             } catch (error: NotFoundException | any) {
                 if (error instanceof NotFoundException)
