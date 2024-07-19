@@ -34,6 +34,12 @@ export class TaskPrismaRepository implements ITaskRepository {
         });
     }
 
+    async delete(id: string): Promise<void> {
+        await this.prisma.task.delete({
+            where: { id }
+        });
+    }
+
     private fromDatabase({
         id,
         title,
