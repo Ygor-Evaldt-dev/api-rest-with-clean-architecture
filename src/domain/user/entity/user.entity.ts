@@ -1,6 +1,6 @@
 import { Entity } from "@/domain/shared/entity";
 import { Email } from "@/domain/shared/value-objects/email";
-import { Name } from "@/domain/shared/value-objects/Name";
+import { Name } from "@/domain/shared/value-objects/name";
 import { Params } from "@/domain/user/entity/params";
 
 export class User extends Entity {

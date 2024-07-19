@@ -7,11 +7,13 @@ import { AuthRoutes } from "@/presentation/routes/auth.routes";
 import { authMiddleware } from "@/presentation/middlewars/auth.middleware";
 import { UserModule } from "@/application/services/user/user.module";
 import { AuthModule } from "@/application/services/auth/auth.module";
+import { PrismaClient } from "@prisma/client";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();
 
-const userRepository = new UserPrismaRepository();
+const prisma = new PrismaClient();
+const userRepository = new UserPrismaRepository(prisma);
 
 const userModule = new UserModule(userRepository, encrypter);
 const authModule = new AuthModule(userRepository, encrypter, tokenProvider);

@@ -4,7 +4,7 @@ import { LongText } from "@/domain/shared/value-objects/long-text";
 import { Title } from "@/domain/shared/value-objects/title";
 import { Params } from "@/domain/task/entity/params";
 
-export class TaskEntity extends Entity {
+export class Task extends Entity {
     readonly title: Title;
     readonly description?: LongText;
     readonly status: Status;
