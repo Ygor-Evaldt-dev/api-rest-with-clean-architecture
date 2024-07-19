@@ -22,7 +22,16 @@ export class TaskPrismaRepository implements ITaskRepository {
     }
 
     async update(task: Task): Promise<void> {
-        throw new Error("Method not implemented.");
+        await this.prisma.task.update({
+            where: {
+                id: task.id.value
+            },
+            data: {
+                title: task.title.complete,
+                description: task.description?.complete,
+                status: task.status,
+            }
+        });
     }
 
     private fromDatabase({
