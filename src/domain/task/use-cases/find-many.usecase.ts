@@ -1,6 +1,6 @@
 import { ITaskRepository } from "@/domain/ports";
 import { IService } from "@/domain/shared/service.interface";
-import { PaginationInput, PaginationOutput } from "@/domain/shared/types";
+import { PaginationInput } from "@/domain/shared/types";
 import { Task } from "@/domain/task/entity/task.entity";
 
 export class FindManyUseCase implements IService<PaginationInput, Task[]> {
