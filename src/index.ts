@@ -8,17 +8,23 @@ import { authMiddleware } from "@/presentation/middlewars/auth.middleware";
 import { UserModule } from "@/application/services/user/user.module";
 import { AuthModule } from "@/application/services/auth/auth.module";
 import { PrismaClient } from "@prisma/client";
+import { TaskModule } from "./application/services/task";
+import { TaskPrismaRepository } from "./infra/repositories/task/task-prisma.repository";
+import { TaskRoutes } from "./presentation/routes/task.route";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();
 
 const prisma = new PrismaClient();
 const userRepository = new UserPrismaRepository(prisma);
+const taskRepository = new TaskPrismaRepository(prisma);
 
 const userModule = new UserModule(userRepository, encrypter);
 const authModule = new AuthModule(userRepository, encrypter, tokenProvider);
+const taskModule = new TaskModule(taskRepository);
 
 const authentication = authMiddleware(userModule.findService, tokenProvider);
 
 new AuthRoutes(server, authModule);
 new UserRoutes(server, userModule, [authentication]);
+new TaskRoutes(server, taskModule, [authentication]);

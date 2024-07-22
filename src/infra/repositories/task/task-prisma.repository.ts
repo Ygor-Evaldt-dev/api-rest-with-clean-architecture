@@ -22,6 +22,18 @@ export class TaskPrismaRepository implements ITaskRepository {
         });
     }
 
+    async findUnique(id: string): Promise<Task | null> {
+        const task = await this.prisma.task.findUnique({
+            where: { id }
+        });
+        if (!task) return null;
+
+        return this.fromDatabase({
+            ...task,
+            description: task.description ?? undefined
+        });
+    }
+
     async findMany({
         page,
         take
