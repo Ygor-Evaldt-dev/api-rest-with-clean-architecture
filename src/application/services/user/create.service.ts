@@ -1,10 +1,9 @@
 import { IService } from "@/domain/shared/service.interface";
 import { User } from "@/domain/user/entity/user.entity";
-import { Create } from "@/domain/user/use-cases/create.usecase";
-import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
-import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
-import { ConflictException } from "@/common/exceptions/conflict.exception";
+import { CreateUserDto } from "@/application/services/user/dtos";
+import { ConflictException } from "@/common/exceptions";
 import { removePassword } from "@/application/utils/remove-password";
+import { Create, FindUnique } from "@/domain/user/use-cases";
 
 export class CreateService implements IService<CreateUserDto, User> {
     constructor(

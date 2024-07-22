@@ -3,6 +3,7 @@ import { Task } from "@/domain/task/entity/task.entity";
 import { TaskDto } from "./task.dto";
 import { Status } from "@/domain/shared/enums/status";
 import { PrismaClient } from "@prisma/client";
+import { Input, Output } from "@/domain/task/use-cases/findMany.usecase";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -19,6 +20,21 @@ export class TaskPrismaRepository implements ITaskRepository {
                 userId
             }
         });
+    }
+
+    async findMany({
+        page,
+        take
+    }: Input): Promise<Task[] | []> {
+        const registers = await this.prisma.task.findMany({
+            skip: page * take,
+            take
+        });
+
+        return registers.map(register => this.fromDatabase({
+            ...register,
+            description: register.description || undefined
+        }));
     }
 
     async update(task: Task): Promise<void> {
@@ -38,6 +54,10 @@ export class TaskPrismaRepository implements ITaskRepository {
         await this.prisma.task.delete({
             where: { id }
         });
+    }
+
+    async total(): Promise<number> {
+        return await this.prisma.task.count();
     }
 
     private fromDatabase({

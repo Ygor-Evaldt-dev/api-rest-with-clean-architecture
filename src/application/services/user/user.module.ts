@@ -1,13 +1,6 @@
-import { IEncrypter } from "@/domain/ports/encrypter.interface";
-import { IUserRepository } from "@/domain/ports/user-repository.interface";
-import { Create } from "@/domain/user/use-cases/create.usecase";
-import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
-import { Remove } from "@/domain/user/use-cases/remove.usecase";
-import { Update } from "@/domain/user/use-cases/update.usecase";
-import { CreateService } from "./create.service";
-import { FindService } from "./find.service";
-import { UpdateService } from "./update.service";
-import { DeleteService } from "./delete.service";
+import { IUserRepository, IEncrypter } from "@/domain/ports";
+import { CreateService, FindService, UpdateService, DeleteService } from "@/application/services/user"
+import { Create, FindUnique, Update, Remove } from "@/domain/user/use-cases";
 
 export class UserModule {
     readonly createService: CreateService;

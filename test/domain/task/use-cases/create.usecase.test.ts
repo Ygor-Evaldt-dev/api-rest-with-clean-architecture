@@ -2,11 +2,15 @@ import { Task } from "@/domain/task/entity/task.entity";
 import { getTestingModule } from "../getTestingModule";
 
 describe("create task", () => {
-    const { createUseCase } = getTestingModule();
+    const { createUseCase, removeUseCase } = getTestingModule();
     const userId = "53211d23-a8e0-4c58-8857-91d19d64fe27";
     const task = new Task({
         title: "Primeira tarefa"
     });
+
+    afterAll(async () => {
+        await removeUseCase.execute(task.id.value);
+    })
 
     it("should create an new task to existing user", async () => {
         await expect(createUseCase.execute({
