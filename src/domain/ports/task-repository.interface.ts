@@ -1,9 +1,9 @@
-import { Task } from "../task/entity/task.entity";
-import { Input } from "@/domain/task/use-cases/findMany.usecase";
+import { PaginationInput } from "../shared/types";
+import { Task } from "@/domain/task/entity/task.entity";
 
 export interface ITaskRepository {
     create(userId: string, task: Task): Promise<void>;
-    findMany(params: Input): Promise<Task[] | []>;
+    findMany(params: PaginationInput): Promise<Task[]>;
     total(): Promise<number>;
     update(task: Task): Promise<void>;
     delete(id: string): Promise<void>;

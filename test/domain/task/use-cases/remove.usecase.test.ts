@@ -1,8 +1,8 @@
 import { Task } from "@/domain/task/entity/task.entity";
-import { getTestingModule } from "../getTestingModule";
+import { getTestModule } from "../getTestModule";
 
 describe("remove task", () => {
-    const { createUseCase, removeUseCase } = getTestingModule();
+    const { createUseCase, removeUseCase } = getTestModule();
     const userId = "53211d23-a8e0-4c58-8857-91d19d64fe27";
     const task = new Task({
         title: "Tarefa deletada"

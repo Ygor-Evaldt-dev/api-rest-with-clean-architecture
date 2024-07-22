@@ -3,7 +3,7 @@ import { Task } from "@/domain/task/entity/task.entity";
 import { TaskDto } from "./task.dto";
 import { Status } from "@/domain/shared/enums/status";
 import { PrismaClient } from "@prisma/client";
-import { Input, Output } from "@/domain/task/use-cases/findMany.usecase";
+import { PaginationInput } from "@/domain/shared/types";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -25,7 +25,7 @@ export class TaskPrismaRepository implements ITaskRepository {
     async findMany({
         page,
         take
-    }: Input): Promise<Task[] | []> {
+    }: PaginationInput): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: page * take,
             take

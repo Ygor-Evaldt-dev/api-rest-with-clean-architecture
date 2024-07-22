@@ -1,8 +1,8 @@
 import { Task } from "@/domain/task/entity/task.entity";
-import { getTestingModule } from "../getTestingModule";
+import { getTestModule } from "../getTestModule";
 
 describe("update task", () => {
-    const { createUseCase, updateUseCase, removeUseCase } = getTestingModule();
+    const { createUseCase, updateUseCase, removeUseCase } = getTestModule();
     const task = new Task({
         id: "53211d23-a8e0-4c58-8857-91d19d64fe10",
         title: "Segunda tarefa"
