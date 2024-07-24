@@ -1,4 +1,4 @@
-import { partial } from "../util";
+import { partial } from "@/domain/shared/utils";
 
 export class LongText {
     readonly complete: string;

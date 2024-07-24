@@ -1,4 +1,4 @@
-import { capitalize, partial } from "../util";
+import { capitalize, partial } from "@/domain/shared/utils";
 
 export class Title {
     readonly complete: string;
