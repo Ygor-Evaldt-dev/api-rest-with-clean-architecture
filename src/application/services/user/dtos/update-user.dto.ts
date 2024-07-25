@@ -3,6 +3,7 @@ import { IsEmail, IsOptional, IsStrongPassword, IsUUID, Length } from "class-val
 import { version } from "uuid";
 
 export class UpdateUserDto {
+    @IsUUID("4", { message: "Identificação de usuário inválida" })
     readonly id: string;
 
     @IsOptional()
