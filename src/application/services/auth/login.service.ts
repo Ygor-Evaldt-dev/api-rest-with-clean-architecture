@@ -7,6 +7,7 @@ import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
 import { removePassword } from "@/application/utils/remove-password";
+import { UnauthorizedException } from "@/common/exceptions";
 
 export class LoginService implements IService<LoginDto, TokenDto> {
     constructor(
@@ -23,7 +24,7 @@ export class LoginService implements IService<LoginDto, TokenDto> {
             password,
             user.password!
         );
-        if (!isPasswordValid) throw new BadRequestException("Senha inválida");
+        if (!isPasswordValid) throw new UnauthorizedException("Senha inválida");
 
         const accessToken = this.tokenProvider.generate({
             user: removePassword(user)

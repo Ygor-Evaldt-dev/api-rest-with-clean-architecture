@@ -13,6 +13,7 @@
     "author": "Ygor Evaldt",
     "license": "ISC",
     "devDependencies": {
+        "@types/axios": "^0.14.0",
         "@types/bcrypt": "^5.0.2",
         "@types/cors": "^2.8.17",
         "@types/dotenv": "^8.2.0",
@@ -29,6 +30,7 @@
     },
     "dependencies": {
         "@prisma/client": "^5.16.2",
+        "axios": "^1.7.2",
         "bcrypt": "^5.1.1",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",

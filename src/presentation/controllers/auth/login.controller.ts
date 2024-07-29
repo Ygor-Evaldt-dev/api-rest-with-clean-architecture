@@ -4,7 +4,7 @@ import { HttpStatus } from "@/common/utils/http-status";
 import { BadRequestException } from "@/common/exceptions/bad-request.exception";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { LoginService } from "@/application/services/auth/login.service";
-import { validateDto } from "@/presentation/util";
+import { handleRequestError, validateDto } from "@/presentation/util";
 import { LoginDto } from "@/application/services/auth/dtos";
 
 export class LoginController {
@@ -21,15 +21,7 @@ export class LoginController {
                 const token = await this.loginService.execute(dto);
                 res.status(HttpStatus.OK).json(token);
             } catch (error: NotFoundException | BadRequestException | any) {
-                if (error instanceof NotFoundException)
-                    res.status(HttpStatus.NOT_FOUND).send(error.message);
-                else if (error instanceof BadRequestException)
-                    res.status(HttpStatus.UNAUTHORIZED).send(error.message);
-                else {
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-                    console.error(error.message);
-                }
-
+                handleRequestError(res, error);
             }
         });
     }

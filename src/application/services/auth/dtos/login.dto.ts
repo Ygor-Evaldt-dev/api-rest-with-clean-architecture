@@ -5,7 +5,7 @@ export class LoginDto {
     @IsEmail({}, { message: "E-mail inválido" })
     readonly email: string;
 
-    @IsDefined({ message: "Senha é obriatória" })
+    @IsDefined({ message: "Senha é obrigatória" })
     readonly password: string
 
     constructor(
