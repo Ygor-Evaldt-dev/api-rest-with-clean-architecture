@@ -4,6 +4,7 @@ import { HttpStatus } from "@/common/utils/http-status";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { ConflictException } from "@/common/exceptions/conflict.exception";
 import { DeleteService } from "@/application/services/user/delete.service";
+import { handleRequestError } from "@/presentation/util";
 
 export class DeleteController {
     constructor(
@@ -15,11 +16,8 @@ export class DeleteController {
             try {
                 await this.remove.execute(req.params.id);
                 res.sendStatus(HttpStatus.OK);
-            } catch (error: NotFoundException | ConflictException | any) {
-                if (error instanceof NotFoundException)
-                    res.status(HttpStatus.NOT_FOUND).send(error.message);
-                else
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (error: any) {
+                handleRequestError(res, error);
             }
         });
     }

@@ -20,7 +20,7 @@ export class LoginController {
 
                 const token = await this.loginService.execute(dto);
                 res.status(HttpStatus.OK).json(token);
-            } catch (error: NotFoundException | BadRequestException | any) {
+            } catch (error: any) {
                 handleRequestError(res, error);
             }
         });

@@ -4,7 +4,7 @@ import { Express, Request, Response } from "express";
 import { CreateService } from "@/application/services/user/create.service";
 import { CreateUserDto } from "@/application/services/user/dtos";
 import { BadRequestException } from "@/common/exceptions";
-import { validateDto } from "@/presentation/util";
+import { handleRequestError, validateDto } from "@/presentation/util";
 
 export class CreateController {
     constructor(
@@ -20,15 +20,8 @@ export class CreateController {
 
                 const response = await this.create.execute(dto);
                 res.status(HttpStatus.CREATED).json(response);
-            } catch (error: ConflictException | any) {
-                if (error instanceof ConflictException)
-                    res.status(HttpStatus.CONFLICT).send(error.message);
-                else if (error instanceof BadRequestException)
-                    res.status(HttpStatus.BAD_REQUEST).send(error.message);
-                else {
-                    console.error(error);
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+            } catch (error: any) {
+                handleRequestError(res, error);
             }
         });
     }

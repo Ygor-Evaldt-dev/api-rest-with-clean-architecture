@@ -1,7 +1,7 @@
-import { RemoveService } from "@/application/services/task";
-import { NotFoundException } from "@/common/exceptions";
-import { HttpStatus } from "@/common/utils/http-status";
 import { Express, Request, Response } from "express";
+import { RemoveService } from "@/application/services/task";
+import { HttpStatus } from "@/common/utils/http-status";
+import { handleRequestError } from "@/presentation/util";
 
 export class RemoveController {
     constructor(
@@ -13,13 +13,8 @@ export class RemoveController {
             try {
                 await this.remove.execute(req.params.id);
                 res.sendStatus(HttpStatus.OK);
-            } catch (error: NotFoundException | any) {
-                if (error instanceof NotFoundException)
-                    res.status(HttpStatus.NOT_FOUND).send(error.message);
-                else {
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-                    console.error(error.message);
-                }
+            } catch (error: any) {
+                handleRequestError(res, error);
             }
         });
     }

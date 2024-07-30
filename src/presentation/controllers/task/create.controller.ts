@@ -1,6 +1,7 @@
+import { Express, Request, Response } from "express";
 import { CreateService } from "@/application/services/task";
 import { HttpStatus } from "@/common/utils/http-status";
-import { Express, Request, Response } from "express";
+import { handleRequestError } from "@/presentation/util";
 
 export class CreateController {
     constructor(
@@ -17,7 +18,7 @@ export class CreateController {
                 const response = await this.create.execute(dto);
                 res.status(HttpStatus.CREATED).json(response);
             } catch (error: any) {
-                res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                handleRequestError(res, error);
             }
         });
     }

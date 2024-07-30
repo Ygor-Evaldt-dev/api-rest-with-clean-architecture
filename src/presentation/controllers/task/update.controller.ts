@@ -1,6 +1,6 @@
 import { UpdateService } from "@/application/services/task";
-import { NotFoundException } from "@/common/exceptions";
 import { HttpStatus } from "@/common/utils/http-status";
+import { handleRequestError } from "@/presentation/util";
 import { Express, Request, Response } from "express";
 
 export class UpdateController {
@@ -17,14 +17,8 @@ export class UpdateController {
                 };
                 const response = await this.update.execute(dto);
                 res.status(HttpStatus.OK).json(response);
-            } catch (error: NotFoundException | any) {
-                if (error instanceof NotFoundException)
-                    res.send(HttpStatus.NOT_FOUND).send(error.message);
-                else {
-                    console.error("Error", error);
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-
+            } catch (error: any) {
+                handleRequestError(res, error);
             }
         });
     }

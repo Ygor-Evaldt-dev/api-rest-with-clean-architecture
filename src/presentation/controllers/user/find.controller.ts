@@ -17,7 +17,7 @@ export class FindController {
                 });
 
                 res.status(HttpStatus.OK).json(response);
-            } catch (error: NotFoundException | any) {
+            } catch (error: any) {
                 handleRequestError(res, error);
             }
         });

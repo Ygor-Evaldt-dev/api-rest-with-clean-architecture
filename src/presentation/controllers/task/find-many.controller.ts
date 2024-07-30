@@ -1,6 +1,7 @@
 import { Express, Request, Response } from "express";
 import { FindManyService } from "@/application/services/task";
 import { HttpStatus } from "@/common/utils/http-status";
+import { handleRequestError } from "@/presentation/util";
 
 export class FindManyController {
     constructor(
@@ -17,7 +18,7 @@ export class FindManyController {
                 });
                 res.status(HttpStatus.OK).json(response);
             } catch (error: any) {
-                res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                handleRequestError(res, error);
             }
         });
     }
