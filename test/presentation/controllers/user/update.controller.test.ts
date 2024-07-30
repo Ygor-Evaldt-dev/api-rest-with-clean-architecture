@@ -55,14 +55,14 @@ describe("update controller", () => {
         }
     });
 
-    it("should return http status 404 bad request if user id is invalid", async () => {
+    it("should return http status 404 not found if user id is invalid", async () => {
         try {
             const response = await axiosInstance.patch(`/user/any`, {
                 email: "admin@gmail.com"
             });
         } catch (error: BadRequestException | any) {
-            expect(error.response.status).toBe(HttpStatus.BAD_REQUEST);
-            expect(error.response.data).toBe("Identificação de usuário inválida");
+            expect(error.response.status).toBe(HttpStatus.NOT_FOUND);
+            expect(error.response.data).toBe("Registro não cadastrado");
         }
     });
 

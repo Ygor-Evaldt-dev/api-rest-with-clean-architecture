@@ -10,13 +10,13 @@ describe("find controller", () => {
         axiosInstance = await authenticatedAxiosInstance();
     });
 
-    it("should return http status 400 bad request if user id is invalid", async () => {
+    it("should return http status 404 not found if user id is invalid", async () => {
         try {
             const id = "any";
             const response = await axiosInstance.get(`/user/${id}`);
         } catch (error: any) {
-            expect(error.response.status).toBe(HttpStatus.BAD_REQUEST);
-            expect(error.response.data).toBe("Idêntificação de usuário inválida");
+            expect(error.response.status).toBe(HttpStatus.NOT_FOUND);
+            expect(error.response.data).toBe("Registro não cadastrado");
         }
     });
 

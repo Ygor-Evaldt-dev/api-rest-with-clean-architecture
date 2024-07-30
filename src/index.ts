@@ -12,6 +12,7 @@ import { TaskModule } from "./application/services/task";
 import { TaskPrismaRepository } from "./infra/repositories/task/task-prisma.repository";
 import { TaskRoutes } from "./presentation/routes/task.route";
 import { UuidAdapter } from "./infra/adapters/uuid.adapter";
+import { uuidMiddleware } from "./presentation/middlewars/uuid.middleware";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();
@@ -25,7 +26,8 @@ const authModule = new AuthModule(userRepository, encrypter, tokenProvider);
 const taskModule = new TaskModule(taskRepository);
 
 const authentication = authMiddleware(userModule.findService, tokenProvider);
+const uuid = uuidMiddleware();
 
 new AuthRoutes(server, authModule);
-new UserRoutes(server, userModule, [authentication]);
-new TaskRoutes(server, taskModule, [authentication]);
+new UserRoutes(server, userModule, [authentication, uuid]);
+new TaskRoutes(server, taskModule, [authentication, uuid]);
