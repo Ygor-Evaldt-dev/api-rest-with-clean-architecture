@@ -27,7 +27,6 @@ export class UserPrismaRepository implements IUserRepository {
         id?: string;
         email?: string;
     }): Promise<User | null> {
-        console.log("id", id)
         const user = await this.prisma.user.findUnique({
             where: { id, email }
         });
