@@ -1,4 +1,4 @@
-import { IUserRepository, IEncrypter } from "@/domain/ports";
+import { IUserRepository, IEncrypter, IUuid } from "@/domain/ports";
 import { CreateService, FindService, UpdateService, DeleteService } from "@/application/services/user"
 import { Create, FindUnique, Update, Remove } from "@/domain/user/use-cases";
 

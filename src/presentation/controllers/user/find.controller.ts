@@ -1,6 +1,7 @@
 import { FindService } from "@/application/services/user/find.service";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { HttpStatus } from "@/common/utils/http-status";
+import { handleRequestError } from "@/presentation/util";
 import { Request, Response, Express } from "express";
 
 export class FindController {
@@ -17,10 +18,7 @@ export class FindController {
 
                 res.status(HttpStatus.OK).json(response);
             } catch (error: NotFoundException | any) {
-                if (error instanceof NotFoundException)
-                    res.sendStatus(HttpStatus.NOT_FOUND);
-                else
-                    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                handleRequestError(res, error);
             }
         });
     }

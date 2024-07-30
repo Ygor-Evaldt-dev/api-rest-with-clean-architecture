@@ -1,8 +1,8 @@
-import { TaskModule } from "@/application/services/task";
 import { Express } from "express";
-import { CreateController, UpdateController } from "../controllers/task";
-import { FindManyController } from "../controllers/task/find-many.controller";
-import { RemoveController } from "../controllers/task/remove.controller";
+import { TaskModule } from "@/application/services/task";
+import { CreateController, UpdateController } from "@/presentation/controllers/task";
+import { FindManyController } from "@/presentation/controllers/task/find-many.controller";
+import { RemoveController } from "@/presentation/controllers/task/remove.controller";
 
 export class TaskRoutes {
     constructor(

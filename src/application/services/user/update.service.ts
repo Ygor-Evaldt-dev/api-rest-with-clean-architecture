@@ -6,6 +6,7 @@ import { FindUnique } from "@/domain/user/use-cases/find-unique.usecase";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
 import { removePassword } from "@/application/utils/remove-password";
 import { ConflictException } from "@/common/exceptions/conflict.exception";
+import { validateUuid } from "@/application/utils";
 
 export class UpdateService implements IService<UpdateUserDto, User> {
     constructor(
@@ -14,6 +15,8 @@ export class UpdateService implements IService<UpdateUserDto, User> {
     ) { }
 
     async execute(dto: UpdateUserDto): Promise<User> {
+        if (dto.id) validateUuid(dto.id, "usuário");
+
         const existingUser = await this.findUnique.execute({
             id: dto.id
         });

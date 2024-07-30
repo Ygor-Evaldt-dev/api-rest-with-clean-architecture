@@ -11,7 +11,7 @@ import { PrismaClient } from "@prisma/client";
 import { TaskModule } from "./application/services/task";
 import { TaskPrismaRepository } from "./infra/repositories/task/task-prisma.repository";
 import { TaskRoutes } from "./presentation/routes/task.route";
-import "reflect-metadata";
+import { UuidAdapter } from "./infra/adapters/uuid.adapter";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();
