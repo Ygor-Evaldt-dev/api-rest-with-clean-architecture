@@ -1,10 +1,6 @@
 import { Express } from "express";
-
 import { UserModule } from "@/application/services/user/user.module";
-import { CreateController } from "@/presentation/controllers/user/create.controller";
-import { UpdateController } from "@/presentation/controllers/user/update.controller";
-import { FindController } from "@/presentation/controllers/user/find.controller";
-import { DeleteController } from "@/presentation/controllers/user/delete.controller";
+import { UserCreateController, UserUpdateController, UserFindController, UserDeleteController } from "@/presentation/controllers/user";
 
 export class UserRoutes {
     constructor(
@@ -19,9 +15,9 @@ export class UserRoutes {
             deleteService: removeService
         } = this.module;
 
-        new CreateController(this.server, createService);
-        new FindController(this.server, findService, middlewares);
-        new UpdateController(this.server, updateService, middlewares);
-        new DeleteController(this.server, removeService, middlewares);
+        new UserCreateController(this.server, createService);
+        new UserFindController(this.server, findService, this.middlewares);
+        new UserUpdateController(this.server, updateService, this.middlewares);
+        new UserDeleteController(this.server, removeService, this.middlewares);
     }
 }

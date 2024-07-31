@@ -1,8 +1,6 @@
 import { Express } from "express";
 import { TaskModule } from "@/application/services/task";
-import { CreateController, UpdateController } from "@/presentation/controllers/task";
-import { FindManyController } from "@/presentation/controllers/task/find-many.controller";
-import { RemoveController } from "@/presentation/controllers/task/remove.controller";
+import { TaskCreateController, TaskUpdateController, TaskFindManyController, TaskRemoveController } from "@/presentation/controllers/task";
 
 export class TaskRoutes {
     constructor(
@@ -17,9 +15,9 @@ export class TaskRoutes {
             removeService
         } = this.module;
 
-        new CreateController(this.server, createService, this.middlewares);
-        new UpdateController(this.server, updateService, this.middlewares);
-        new FindManyController(this.server, findManyService, this.middlewares);
-        new RemoveController(this.server, removeService, this.middlewares);
+        new TaskCreateController(this.server, createService, this.middlewares);
+        new TaskUpdateController(this.server, updateService, this.middlewares);
+        new TaskFindManyController(this.server, findManyService, this.middlewares);
+        new TaskRemoveController(this.server, removeService, this.middlewares);
     }
 }

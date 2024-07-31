@@ -19,7 +19,8 @@ describe("delete controller", () => {
 
     it("should return http status 404 not found if para 'id' is invalid", async () => {
         try {
-            await axiosInstance.delete("user/any");
+            const invalidUuidV4 = "invalid";
+            await axiosInstance.delete(`user/${invalidUuidV4}`);
         } catch ({ response }: any) {
             expect(response.status).toBe(HttpStatus.NOT_FOUND);
             expect(response.data).toBe("Registro não cadastrado");

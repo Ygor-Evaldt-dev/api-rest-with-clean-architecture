@@ -1,18 +1,13 @@
 import { server } from "@/server";
+import { PrismaClient } from "@prisma/client";
 import { UserPrismaRepository } from "@/infra/repositories/user/user-prisma.repository";
-import { JwtAdapter } from "@/infra/adapters/jwt.adapter";
-import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
-import { UserRoutes } from "@/presentation/routes/user.routes";
-import { AuthRoutes } from "@/presentation/routes/auth.routes";
-import { authMiddleware } from "@/presentation/middlewars/auth.middleware";
+import { TaskPrismaRepository } from "@/infra/repositories/task/task-prisma.repository";
+import { JwtAdapter, BcryptAdapter } from "@/infra/adapters";
+import { UserRoutes, AuthRoutes, TaskRoutes } from "@/presentation/routes";
+import { authMiddleware, uuidMiddleware } from "@/presentation/middlewars";
 import { UserModule } from "@/application/services/user/user.module";
 import { AuthModule } from "@/application/services/auth/auth.module";
-import { PrismaClient } from "@prisma/client";
-import { TaskModule } from "./application/services/task";
-import { TaskPrismaRepository } from "./infra/repositories/task/task-prisma.repository";
-import { TaskRoutes } from "./presentation/routes/task.route";
-import { UuidAdapter } from "./infra/adapters/uuid.adapter";
-import { uuidMiddleware } from "./presentation/middlewars/uuid.middleware";
+import { TaskModule } from "@/application/services/task";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();

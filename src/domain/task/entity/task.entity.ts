@@ -1,8 +1,7 @@
 import { Entity } from "@/domain/shared/entity";
 import { Status } from "@/domain/shared/enums/status";
-import { LongText } from "@/domain/shared/value-objects/long-text";
-import { Title } from "@/domain/shared/value-objects/title";
-import { Params } from "@/domain/task/entity/params";
+import { LongText, Title } from "@/domain/shared/value-objects";
+import { TaskParams } from "@/domain/task/entity/task-params";
 
 export class Task extends Entity {
     readonly title: Title;
@@ -14,7 +13,7 @@ export class Task extends Entity {
         title,
         description,
         status
-    }: Params) {
+    }: TaskParams) {
         super(id!);
 
         this.title = new Title(title);

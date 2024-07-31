@@ -3,10 +3,10 @@ import { HttpStatus } from "@/common/utils/http-status";
 import { Request, Response, NextFunction } from "express";
 import { UserToken } from "./user-token";
 import { NotFoundException } from "@/common/exceptions/not-found.exception";
-import { FindService } from "@/application/services/user/find.service";
+import { UserFindService } from "@/application/services/user/user-find.service";
 
 export function authMiddleware(
-    findService: FindService,
+    findService: UserFindService,
     tokenProvider: ITokenProvider
 ) {
     return async function (req: Request, res: Response, next: NextFunction) {

@@ -1,29 +1,26 @@
 import { ITaskRepository } from "@/domain/ports";
-import { CreateService } from "./create.service";
-import { CreateUseCase, FindManyUseCase, FindTotalUseCase, FindUniqueUseCase, RemoveUseCase, UpdateUseCase } from "@/domain/task/use-cases";
-import { UpdateService } from "./update.service";
-import { FindManyService } from "./find-many.service";
-import { RemoveService } from "./remove.service";
+import { TaskCreateUseCase, TaskFindManyUseCase, TaskFindTotalUseCase, TaskFindUniqueUseCase, TaskRemoveUseCase, TaskUpdateUseCase } from "@/domain/task/use-cases";
+import { TaskCreateService, TaskUpdateService, TaskFindManyService, TaskRemoveService } from "@/application/services/task";
 
 export class TaskModule {
-    readonly createService: CreateService;
-    readonly updateService: UpdateService;
-    readonly findManyService: FindManyService;
-    readonly removeService: RemoveService;
+    readonly createService: TaskCreateService;
+    readonly updateService: TaskUpdateService;
+    readonly findManyService: TaskFindManyService;
+    readonly removeService: TaskRemoveService;
 
     constructor(
         private readonly repository: ITaskRepository,
     ) {
-        const createUseCase = new CreateUseCase(this.repository);
-        const findUniqueUseCase = new FindUniqueUseCase(this.repository);
-        const findManyUseCase = new FindManyUseCase(this.repository);
-        const findTotal = new FindTotalUseCase(this.repository);
-        const updateUseCase = new UpdateUseCase(this.repository);
-        const removeUseCase = new RemoveUseCase(this.repository);
+        const createUseCase = new TaskCreateUseCase(this.repository);
+        const findUniqueUseCase = new TaskFindUniqueUseCase(this.repository);
+        const findManyUseCase = new TaskFindManyUseCase(this.repository);
+        const findTotal = new TaskFindTotalUseCase(this.repository);
+        const updateUseCase = new TaskUpdateUseCase(this.repository);
+        const removeUseCase = new TaskRemoveUseCase(this.repository);
 
-        this.createService = new CreateService(createUseCase);
-        this.updateService = new UpdateService(findUniqueUseCase, updateUseCase);
-        this.findManyService = new FindManyService(findManyUseCase, findTotal);
-        this.removeService = new RemoveService(findUniqueUseCase, removeUseCase);
+        this.createService = new TaskCreateService(createUseCase);
+        this.updateService = new TaskUpdateService(findUniqueUseCase, updateUseCase);
+        this.findManyService = new TaskFindManyService(findManyUseCase, findTotal);
+        this.removeService = new TaskRemoveService(findUniqueUseCase, removeUseCase);
     }
 }

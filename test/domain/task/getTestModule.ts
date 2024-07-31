@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { TaskPrismaRepository } from "@/infra/repositories/task/task-prisma.repository";
-import { CreateUseCase, FindManyUseCase, UpdateUseCase, RemoveUseCase } from "@/domain/task/use-cases";
+import { TaskCreateUseCase, TaskFindManyUseCase, TaskUpdateUseCase, TaskRemoveUseCase } from "@/domain/task/use-cases";
 
 export function getTestModule() {
     const prisma = new PrismaClient();
     const taskRepository = new TaskPrismaRepository(prisma);
-    const createUseCase = new CreateUseCase(taskRepository);
-    const findManyUseCase = new FindManyUseCase(taskRepository);
-    const updateUseCase = new UpdateUseCase(taskRepository);
-    const removeUseCase = new RemoveUseCase(taskRepository);
+    const createUseCase = new TaskCreateUseCase(taskRepository);
+    const findManyUseCase = new TaskFindManyUseCase(taskRepository);
+    const updateUseCase = new TaskUpdateUseCase(taskRepository);
+    const removeUseCase = new TaskRemoveUseCase(taskRepository);
 
     return ({
         taskRepository,
