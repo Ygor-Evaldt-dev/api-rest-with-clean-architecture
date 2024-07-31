@@ -1,4 +1,3 @@
-import { UserFindService } from "@/application/services/user/user-find.service";
 import { HttpStatus } from "@/common/utils/http-status";
 import { UserFindUnique } from "@/domain/user/use-cases";
 import { handleRequestError } from "@/presentation/util";

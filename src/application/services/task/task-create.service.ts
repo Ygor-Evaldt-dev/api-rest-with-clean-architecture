@@ -1,6 +1,6 @@
 import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
-import { CreateTaskDto } from "./dtos";
+import { CreateTaskDto } from "../../../domain/task/dtos";
 import { TaskCreateUseCase } from "@/domain/task/use-cases";
 import { Status } from "@/domain/shared/enums/status";
 

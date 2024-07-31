@@ -1,6 +1,6 @@
 import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
-import { UpdateTaskDto } from "./dtos";
+import { UpdateTaskDto } from "../../../domain/task/dtos";
 import { TaskFindUniqueUseCase, TaskUpdateUseCase } from "@/domain/task/use-cases";
 import { Status } from "@/domain/shared/enums/status";
 import { NotFoundException } from "@/common/exceptions";
