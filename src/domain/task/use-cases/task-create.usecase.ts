@@ -1,4 +1,4 @@
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "../entity/task.entity";
 import { ITaskRepository } from "@/domain/ports/task-repository.interface";
 
@@ -7,7 +7,7 @@ type Input = {
     task: Task
 }
 
-export class TaskCreateUseCase implements IService<Input, void> {
+export class TaskCreateUseCase implements IUseCase<Input, void> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }

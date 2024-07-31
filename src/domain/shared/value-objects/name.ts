@@ -1,3 +1,4 @@
+import { BadRequestException } from "@/common/exceptions";
 import { capitalize } from "@/domain/shared/utils";
 
 export class Name {
@@ -7,6 +8,15 @@ export class Name {
 
     constructor(complete: string) {
         this.complete = capitalize(complete.trim());
+
+        const min = 3;
+        const max = 150;
+        if (this.complete.length < min)
+            throw new BadRequestException(`Nome deve ter no mínimo ${min} caracteres`);
+        if (this.complete.length > max)
+            throw new BadRequestException(`Nome deve ter no máximo ${max} caracteres`);
+
+
         this.firstName = this.getFirstName();
         this.lastName = this.getLastName();
     }

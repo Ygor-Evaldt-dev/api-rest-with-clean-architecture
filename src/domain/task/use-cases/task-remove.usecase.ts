@@ -1,7 +1,7 @@
 import { ITaskRepository } from "@/domain/ports/task-repository.interface";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 
-export class TaskRemoveUseCase implements IService<string, void> {
+export class TaskRemoveUseCase implements IUseCase<string, void> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }

@@ -1,8 +1,8 @@
-import { CreateUserDto } from "@/application/services/user/dtos/create-user.dto";
+import { CreateUserDto } from "@/domain/user/dtos/create-user.dto";
 import { getTestModule } from "./get-test-module";
 
 describe("create service", () => {
-    const { createService, deleteService } = getTestModule();
+    const { create: createService, deleteService } = getTestModule();
     const dto: CreateUserDto = {
         email: "teste@email.com",
         password: "Senha@test3"

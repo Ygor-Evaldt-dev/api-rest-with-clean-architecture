@@ -2,7 +2,7 @@ import { getTestModule } from "./get-test-module";
 import { User } from "@/domain/user/entity/user.entity";
 
 describe("update", () => {
-    const { createService, updateService, deleteService } = getTestModule();
+    const { create: createService, update: updateService, deleteService } = getTestModule();
     let user: User;
 
     beforeAll(async () => {

@@ -1,22 +1,16 @@
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
 import { User } from "@/domain/user/entity/user.entity";
-import { Prisma, PrismaClient } from "@prisma/client";
-import { UserDto } from "./user.dto";
+import { PrismaClient } from "@prisma/client";
+import { User as UserPrisma } from "@prisma/client";
 
 export class UserPrismaRepository implements IUserRepository {
-    // private readonly prisma = new PrismaClient();
     constructor(
         private readonly prisma: PrismaClient
     ) { }
 
     async create(user: User): Promise<void> {
         await this.prisma.user.create({
-            data: {
-                id: user.id.value,
-                email: user.email.complete.toLowerCase(),
-                password: user.password!,
-                name: user.name?.complete
-            }
+            data: this.toDatabase(user)
         });
     }
 
@@ -39,11 +33,7 @@ export class UserPrismaRepository implements IUserRepository {
             where: {
                 id: user.id.value
             },
-            data: {
-                email: user.email.complete.toLowerCase(),
-                password: user.password!,
-                name: user.name?.complete.toLowerCase()
-            }
+            data: this.toDatabase(user)
         });
     }
 
@@ -53,7 +43,21 @@ export class UserPrismaRepository implements IUserRepository {
         });
     }
 
-    private fromDatabase({ id, email, password, name }: UserDto) {
+    private toDatabase({
+        id,
+        email,
+        password,
+        name
+    }: User) {
+        return ({
+            id: id.value,
+            email: email.complete,
+            password: password?.value!,
+            name: name?.complete?.toLowerCase()
+        });
+    }
+
+    private fromDatabase({ id, email, password, name }: UserPrisma) {
         return new User({
             id,
             email,

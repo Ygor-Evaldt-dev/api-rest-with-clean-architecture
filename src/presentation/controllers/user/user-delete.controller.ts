@@ -1,12 +1,12 @@
 import { Request, Response, Express } from "express";
 import { HttpStatus } from "@/common/utils/http-status";
-import { UserDeleteService } from "@/application/services/user/user-delete.service";
 import { handleRequestError } from "@/presentation/util";
+import { UserRemove } from "@/domain/user/use-cases";
 
 export class UserDeleteController {
     constructor(
         private readonly server: Express,
-        private readonly remove: UserDeleteService,
+        private readonly remove: UserRemove,
         private middlewares: any[]
     ) {
         this.server.delete("/user/:id", ...this.middlewares, async (req: Request, res: Response) => {

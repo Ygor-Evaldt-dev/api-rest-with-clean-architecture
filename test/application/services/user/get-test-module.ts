@@ -1,6 +1,6 @@
 import { IEncrypter } from "@/domain/ports/encrypter.interface";
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
-import { UserModule } from "@/application/services/user/user.module";
+import { UserModule } from "@/application/modules/user.module";
 import { BcryptAdapter } from "@/infra/adapters/bcrypt.adapter";
 import { UserPrismaRepository } from "@/infra/repositories/user/user-prisma.repository";
 import { PrismaClient } from "@prisma/client";

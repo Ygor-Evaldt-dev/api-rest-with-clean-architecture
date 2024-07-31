@@ -1,7 +1,7 @@
 import { ITaskRepository } from "@/domain/ports";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 
-export class TaskFindTotalUseCase implements IService<void, number> {
+export class TaskFindTotalUseCase implements IUseCase<void, number> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }

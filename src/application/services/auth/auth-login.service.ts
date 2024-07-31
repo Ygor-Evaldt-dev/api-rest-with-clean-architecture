@@ -1,10 +1,10 @@
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { LoginDto, TokenDto } from "./dtos";
 import { IEncrypter, ITokenProvider, IUserRepository } from "@/domain/ports";
 import { NotFoundException, UnauthorizedException } from "@/common/exceptions";
-import { removePassword } from "@/application/utils/remove-password";
+import { removePassword } from "@/domain/shared/utils/remove-password";
 
-export class AuthLoginService implements IService<LoginDto, TokenDto> {
+export class AuthLoginService implements IUseCase<LoginDto, TokenDto> {
     constructor(
         private readonly userRepository: IUserRepository,
         private readonly encrypter: IEncrypter,
@@ -17,7 +17,7 @@ export class AuthLoginService implements IService<LoginDto, TokenDto> {
 
         const isPasswordValid = await this.encrypter.compare(
             password,
-            user.password!
+            user.password?.value!
         );
         if (!isPasswordValid) throw new UnauthorizedException("Senha inválida");
 

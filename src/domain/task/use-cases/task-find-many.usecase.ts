@@ -1,9 +1,9 @@
 import { ITaskRepository } from "@/domain/ports";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { PaginationInput } from "@/domain/shared/types";
 import { Task } from "@/domain/task/entity/task.entity";
 
-export class TaskFindManyUseCase implements IService<PaginationInput, Task[]> {
+export class TaskFindManyUseCase implements IUseCase<PaginationInput, Task[]> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }

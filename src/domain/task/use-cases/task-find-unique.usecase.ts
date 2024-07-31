@@ -1,8 +1,8 @@
 import { ITaskRepository } from "@/domain/ports";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 
-export class TaskFindUniqueUseCase implements IService<string, Task | null> {
+export class TaskFindUniqueUseCase implements IUseCase<string, Task | null> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }

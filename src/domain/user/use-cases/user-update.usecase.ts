@@ -1,20 +1,42 @@
 import { IEncrypter } from "@/domain/ports/encrypter.interface";
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { User } from "@/domain/user/entity/user.entity";
+import { UpdateUserDto } from "../dtos";
+import { NotFoundException } from "@/common/exceptions";
 
-export class UserUpdate implements IService<User, void> {
+export class UserUpdate implements IUseCase<UpdateUserDto, void> {
     constructor(
         private readonly repository: IUserRepository,
         private readonly encrypter: IEncrypter
     ) { }
 
-    async execute(user: User): Promise<void> {
-        if (user.password) {
-            const password = await this.encrypter.encrypt(user.password);
-            Object.assign(user, { password });
-        }
+    async execute({
+        id,
+        email,
+        password,
+        name
+    }: UpdateUserDto): Promise<void> {
+        const existingUser = await this.repository.findUnique({ id });
+        if (!existingUser)
+            throw new NotFoundException("Usuário não cadastrado");
 
-        await this.repository.update(user);
+        const user = new User({
+            id: existingUser.id.value,
+            email: email ?? existingUser.email.complete,
+            name: name
+        });
+
+        const encryptPassword = password
+            ? await this.encrypter.encrypt(password)
+            : existingUser.password?.value
+
+        const encriptedUser = Object.assign(user, {
+            password: {
+                value: encryptPassword
+            }
+        });
+
+        await this.repository.update(encriptedUser);
     }
 }

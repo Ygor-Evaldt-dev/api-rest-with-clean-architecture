@@ -1,9 +1,9 @@
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { PaginationInput, PaginationOutput } from "../../utils";
 import { Task } from "@/domain/task/entity/task.entity";
 import { TaskFindManyUseCase, TaskFindTotalUseCase } from "@/domain/task/use-cases";
 
-export class TaskFindManyService implements IService<PaginationInput, PaginationOutput<Task>> {
+export class TaskFindManyService implements IUseCase<PaginationInput, PaginationOutput<Task>> {
     constructor(
         private readonly findMany: TaskFindManyUseCase,
         private readonly findTotal: TaskFindTotalUseCase

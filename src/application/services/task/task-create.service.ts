@@ -1,10 +1,10 @@
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { CreateTaskDto } from "./dtos";
 import { TaskCreateUseCase } from "@/domain/task/use-cases";
 import { Status } from "@/domain/shared/enums/status";
 
-export class TaskCreateService implements IService<CreateTaskDto, Task> {
+export class TaskCreateService implements IUseCase<CreateTaskDto, Task> {
     constructor(
         private readonly create: TaskCreateUseCase
     ) { }

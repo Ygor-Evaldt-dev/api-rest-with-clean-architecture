@@ -1,7 +1,7 @@
 import { getTestModule } from "./get-test-module";
 
 describe("find unique", () => {
-    const { findService } = getTestModule();
+    const { find: findService } = getTestModule();
     const email = "admin@gmail.com";
 
     it("should return a registred user", async () => {

@@ -1,11 +1,11 @@
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { UpdateTaskDto } from "./dtos";
 import { TaskFindUniqueUseCase, TaskUpdateUseCase } from "@/domain/task/use-cases";
 import { Status } from "@/domain/shared/enums/status";
 import { NotFoundException } from "@/common/exceptions";
 
-export class TaskUpdateService implements IService<UpdateTaskDto, Task> {
+export class TaskUpdateService implements IUseCase<UpdateTaskDto, Task> {
     constructor(
         private readonly findUnique: TaskFindUniqueUseCase,
         private readonly update: TaskUpdateUseCase

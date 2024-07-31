@@ -1,8 +1,8 @@
 import { NotFoundException } from "@/common/exceptions";
-import { IService } from "@/domain/shared/service.interface";
+import { IUseCase } from "@/domain/shared/usecase.interface";
 import { TaskFindUniqueUseCase, TaskRemoveUseCase } from "@/domain/task/use-cases";
 
-export class TaskRemoveService implements IService<string, void> {
+export class TaskRemoveService implements IUseCase<string, void> {
     constructor(
         private readonly findUnique: TaskFindUniqueUseCase,
         private readonly remove: TaskRemoveUseCase
