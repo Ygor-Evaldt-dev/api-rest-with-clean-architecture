@@ -52,11 +52,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             where: {
                 id: task.id.value
             },
-            data: {
-                title: task.title.complete,
-                description: task.description?.complete,
-                status: task.status.value,
-            }
+            data: this.toDatabase(task)
         });
     }
 
@@ -80,7 +76,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             id: id.value,
             title: title.complete,
             description: description?.complete,
-            status: status.value
+            status: status?.value
         });
     }
 

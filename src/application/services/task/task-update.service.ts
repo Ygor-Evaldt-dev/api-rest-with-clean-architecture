@@ -1,14 +1,14 @@
 import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { UpdateTaskDto } from "../../../domain/task/dtos";
-import { TaskFindUniqueUseCase, TaskUpdateUseCase } from "@/domain/task/use-cases";
+import { TaskFindUniqueUseCase, TaskUpdate } from "@/domain/task/use-cases";
 import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { NotFoundException } from "@/common/exceptions";
 
 export class TaskUpdateService implements IUseCase<UpdateTaskDto, Task> {
     constructor(
         private readonly findUnique: TaskFindUniqueUseCase,
-        private readonly update: TaskUpdateUseCase
+        private readonly update: TaskUpdate
     ) { }
 
     async execute({

@@ -6,6 +6,6 @@ export class Status {
         readonly value: StatusEnum
     ) {
         if (!Object.values(StatusEnum).includes(value))
-            throw new BadRequestException("Status deve ser um dos seguintes: pendente, concluído, em andamento");
+            throw new BadRequestException("O status deve ser: 'pendente', 'concluído', ou 'em andamento'.");
     }
 }
