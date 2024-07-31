@@ -1,8 +1,5 @@
 import { Request, Response, Express } from "express";
-
 import { HttpStatus } from "@/common/utils/http-status";
-import { NotFoundException } from "@/common/exceptions/not-found.exception";
-import { ConflictException } from "@/common/exceptions/conflict.exception";
 import { DeleteService } from "@/application/services/user/delete.service";
 import { handleRequestError } from "@/presentation/util";
 
