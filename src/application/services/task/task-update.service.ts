@@ -2,7 +2,7 @@ import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { UpdateTaskDto } from "../../../domain/task/dtos";
 import { TaskFindUniqueUseCase, TaskUpdateUseCase } from "@/domain/task/use-cases";
-import { Status } from "@/domain/shared/enums/status";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { NotFoundException } from "@/common/exceptions";
 
 export class TaskUpdateService implements IUseCase<UpdateTaskDto, Task> {
@@ -25,7 +25,7 @@ export class TaskUpdateService implements IUseCase<UpdateTaskDto, Task> {
             id,
             title: title ?? existingTask.title.complete,
             description: description ?? existingTask.description?.complete,
-            status: status as Status ?? existingTask.status
+            status: status as StatusEnum ?? existingTask.status
         });
         await this.update.execute(task);
 

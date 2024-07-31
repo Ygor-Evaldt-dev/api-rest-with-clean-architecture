@@ -1,6 +1,6 @@
 import { Entity } from "@/domain/shared/entity";
-import { Status } from "@/domain/shared/enums/status";
-import { LongText, Title } from "@/domain/shared/value-objects";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
+import { LongText, Title, Status } from "@/domain/shared/value-objects";
 import { TaskParams } from "@/domain/task/entity/task-params";
 
 export class Task extends Entity {
@@ -18,6 +18,6 @@ export class Task extends Entity {
 
         this.title = new Title(title);
         this.description = description ? new LongText(description) : undefined;
-        this.status = status ? status : Status.pending;
+        this.status = status ? new Status(status) : new Status(StatusEnum.pending);
     }
 }

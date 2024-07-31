@@ -1,12 +1,12 @@
 import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { CreateTaskDto } from "../../../domain/task/dtos";
-import { TaskCreateUseCase } from "@/domain/task/use-cases";
-import { Status } from "@/domain/shared/enums/status";
+import { TaskCreate } from "@/domain/task/use-cases";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
 
 export class TaskCreateService implements IUseCase<CreateTaskDto, Task> {
     constructor(
-        private readonly create: TaskCreateUseCase
+        private readonly create: TaskCreate
     ) { }
 
     async execute({
@@ -18,7 +18,7 @@ export class TaskCreateService implements IUseCase<CreateTaskDto, Task> {
         const task = new Task({
             title,
             description,
-            status: status as Status
+            status: status as StatusEnum
         });
         await this.create.execute({ userId, task });
 

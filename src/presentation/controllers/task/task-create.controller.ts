@@ -1,12 +1,12 @@
 import { Express, Request, Response } from "express";
-import { TaskCreateService } from "@/application/services/task";
 import { HttpStatus } from "@/common/utils/http-status";
 import { handleRequestError } from "@/presentation/util";
+import { TaskCreate } from "@/domain/task/use-cases";
 
 export class TaskCreateController {
     constructor(
         private readonly server: Express,
-        private readonly create: TaskCreateService,
+        private readonly create: TaskCreate,
         private readonly middlewares: any[]
     ) {
         this.server.post("/task", ...this.middlewares, async (req: Request, res: Response) => {
@@ -15,8 +15,9 @@ export class TaskCreateController {
                     ...req.body,
                     userId: (req as any).user.id.value
                 };
-                const response = await this.create.execute(dto);
-                res.status(HttpStatus.CREATED).json(response);
+                await this.create.execute(dto);
+
+                res.sendStatus(HttpStatus.CREATED);
             } catch (error: any) {
                 handleRequestError(res, error);
             }

@@ -1,4 +1,4 @@
-import { Status } from "@/domain/shared/enums/status";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { Transform } from "class-transformer";
 import { IsEnum, IsOptional, IsUUID, Length, MaxLength } from "class-validator";
 
@@ -18,14 +18,14 @@ export class UpdateTaskDto {
 
     @IsOptional()
     @Transform(({ value }) => value?.toString().trim().toLowerCase())
-    @IsEnum(Status, { message: "Status deve ser um dos seguintes: pendente, concluído, em andamento" })
-    readonly status?: Status;
+    @IsEnum(StatusEnum, { message: "Status deve ser um dos seguintes: pendente, concluído, em andamento" })
+    readonly status?: StatusEnum;
 
     constructor(
         id: string,
         title?: string,
         description?: string,
-        status?: Status
+        status?: StatusEnum
     ) {
         this.id = id;
         this.title = title;

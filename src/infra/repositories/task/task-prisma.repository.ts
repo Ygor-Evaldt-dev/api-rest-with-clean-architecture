@@ -1,7 +1,7 @@
 import { ITaskRepository } from "@/domain/ports/task-repository.interface";
 import { Task } from "@/domain/task/entity/task.entity";
 import { TaskDto } from "./task.dto";
-import { Status } from "@/domain/shared/enums/status";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { PrismaClient } from "@prisma/client";
 import { PaginationInput } from "@/domain/shared/types";
 
@@ -11,12 +11,10 @@ export class TaskPrismaRepository implements ITaskRepository {
     ) { }
 
     async create(userId: string, task: Task): Promise<void> {
+        const data = this.toDatabase(task);
         await this.prisma.task.create({
             data: {
-                id: task.id.value,
-                title: task.title.complete,
-                description: task.description?.complete,
-                status: task.status,
+                ...data,
                 userId
             }
         });
@@ -57,7 +55,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             data: {
                 title: task.title.complete,
                 description: task.description?.complete,
-                status: task.status,
+                status: task.status.value,
             }
         });
     }
@@ -72,6 +70,20 @@ export class TaskPrismaRepository implements ITaskRepository {
         return await this.prisma.task.count();
     }
 
+    private toDatabase({
+        id,
+        title,
+        description,
+        status
+    }: Task) {
+        return ({
+            id: id.value,
+            title: title.complete,
+            description: description?.complete,
+            status: status.value
+        });
+    }
+
     private fromDatabase({
         id,
         title,
@@ -82,7 +94,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             id,
             title,
             description,
-            status: status as Status
+            status: status as StatusEnum
         });
     }
 }

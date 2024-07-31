@@ -1,11 +1,11 @@
-import { Status } from "@/domain/shared/enums/status";
+import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { getTestModule } from "./get-test-module";
 
 describe('create', () => {
-    const { createService } = getTestModule();
+    const { create: createService } = getTestModule();
     const dto = {
         title: "Teste",
-        status: Status.pending,
+        status: StatusEnum.pending,
         userId: "53211d23-a8e0-4c58-8857-91d19d64fe27"
     }
 
