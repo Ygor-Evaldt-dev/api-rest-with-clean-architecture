@@ -4,7 +4,8 @@ import { TaskDto } from "./task.dto";
 import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { PrismaClient } from "@prisma/client";
 import { PaginationInput } from "@/domain/shared/types";
-import { TaskFilter } from "@/domain/task/types/task-filter";
+import { TaskFilterParam } from "@/domain/task/types/task-filter-param";
+import { Status } from "@/domain/shared/value-objects";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -53,13 +54,13 @@ export class TaskPrismaRepository implements ITaskRepository {
         take,
         title,
         status
-    }: TaskFilter): Promise<Task[]> {
+    }: TaskFilterParam): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: (page * take),
             take,
             where: {
                 title: title ? { startsWith: `%${title}` } : undefined,
-                status: status?.value,
+                status: status?.value
             }
         });
 
@@ -84,7 +85,18 @@ export class TaskPrismaRepository implements ITaskRepository {
         });
     }
 
-    async total(): Promise<number> {
+    async total(params?: TaskFilterParam): Promise<number> {
+        if (params) {
+            const { title, status } = params;
+
+            return await this.prisma.task.count({
+                where: {
+                    title: title ? { startsWith: `%${title}` } : undefined,
+                    status: status?.value
+                }
+            });
+        }
+
         return await this.prisma.task.count();
     }
 
