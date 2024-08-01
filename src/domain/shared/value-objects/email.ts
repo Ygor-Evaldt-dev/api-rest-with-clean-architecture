@@ -6,7 +6,7 @@ export class Email {
 
     constructor(complete: string) {
         if (!this.isValid(complete))
-            throw new BadRequestException("Email inválido");
+            throw new BadRequestException("E-mail inválido");
 
         this.complete = complete.trim().toLowerCase();
         this.provider = this.getProvider(this.complete);

@@ -1,7 +1,7 @@
 import { BadRequestException } from "@/common/exceptions";
 import { HttpStatus } from "@/common/utils/http-status";
 import { AxiosInstance } from "axios";
-import { authenticatedAxiosInstance } from "../../../presentation/util/authenticated-axios-instance";
+import { authenticatedAxiosInstance } from "../../util/authenticated-axios-instance";
 
 describe("update controller", () => {
     let axiosInstance: AxiosInstance;

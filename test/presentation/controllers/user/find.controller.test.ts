@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { authenticatedAxiosInstance } from "../../../presentation/util/authenticated-axios-instance";
+import { authenticatedAxiosInstance } from "../../util/authenticated-axios-instance";
 import { HttpStatus } from "@/common/utils/http-status";
 
 describe("find controller", () => {

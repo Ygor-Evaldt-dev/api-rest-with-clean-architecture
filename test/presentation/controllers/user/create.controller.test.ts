@@ -1,5 +1,5 @@
 import { HttpStatus } from "@/common/utils/http-status";
-import { getAxiosInstance } from "../../../presentation/util/get-axios-instance";
+import { getAxiosInstance } from "../../util/get-axios-instance";
 
 describe("create controller", () => {
     const axiosInstance = getAxiosInstance();

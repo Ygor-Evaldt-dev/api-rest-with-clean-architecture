@@ -1,5 +1,5 @@
 import { BadRequestException, UnauthorizedException } from "@/common/exceptions";
-import { getAxiosInstance } from "../../../presentation/util/get-axios-instance";
+import { getAxiosInstance } from "../../util/get-axios-instance";
 import { HttpStatus } from "@/common/utils/http-status";
 
 describe("Login", () => {

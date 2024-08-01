@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { HttpStatus } from "@/common/utils/http-status";
-import { authenticatedAxiosInstance } from "../../../presentation/util/authenticated-axios-instance";
+import { authenticatedAxiosInstance } from "../../util/authenticated-axios-instance";
 
 describe("delete controller", () => {
     let id: string;
