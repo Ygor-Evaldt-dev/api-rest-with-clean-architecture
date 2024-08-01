@@ -16,8 +16,8 @@ export class TaskUpdateController {
                     id: req.params.id,
                     ...req.body
                 };
-                const response = await this.update.execute(dto);
-                res.status(HttpStatus.OK).json(response);
+                await this.update.execute(dto);
+                res.sendStatus(HttpStatus.OK)
             } catch (error: any) {
                 handleRequestError(res, error);
             }

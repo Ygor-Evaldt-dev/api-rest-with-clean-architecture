@@ -60,7 +60,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             take,
             where: {
                 title: title ? { startsWith: `%${title}` } : undefined,
-                status: status?.value
+                status
             }
         });
 
@@ -92,7 +92,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             return await this.prisma.task.count({
                 where: {
                     title: title ? { startsWith: `%${title}` } : undefined,
-                    status: status?.value
+                    status
                 }
             });
         }

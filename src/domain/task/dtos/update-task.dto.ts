@@ -1,35 +1,10 @@
 import { StatusEnum } from "@/domain/shared/enums/status.enum";
-import { Transform } from "class-transformer";
-import { IsEnum, IsOptional, IsUUID, Length, MaxLength } from "class-validator";
 
 export class UpdateTaskDto {
-    @IsUUID("4", { message: "A chave de identificação da tarefa é inválida" })
-    readonly id: string;
-
-    @IsOptional()
-    @Length(1, 50, { message: "Título deve ter no mínimo 1 caractere e no máximo 50 caracteres" })
-    @Transform(({ value }) => value?.toString().trim().toLowerCase())
-    readonly title?: string;
-
-    @IsOptional()
-    @MaxLength(500, { message: "Descrição deve conter no máximo 150 caracteres" })
-    @Transform(({ value }) => value?.toString().trim())
-    readonly description?: string;
-
-    @IsOptional()
-    @Transform(({ value }) => value?.toString().trim().toLowerCase())
-    @IsEnum(StatusEnum, { message: "Status deve ser um dos seguintes: pendente, concluído, em andamento" })
-    readonly status?: StatusEnum;
-
     constructor(
-        id: string,
-        title?: string,
-        description?: string,
-        status?: StatusEnum
-    ) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.status = status;
-    }
+        readonly id: string,
+        readonly title?: string,
+        readonly description?: string,
+        readonly status?: StatusEnum
+    ) { }
 }
