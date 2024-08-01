@@ -4,6 +4,7 @@ import { TaskDto } from "./task.dto";
 import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { PrismaClient } from "@prisma/client";
 import { PaginationInput } from "@/domain/shared/types";
+import { TaskFilter } from "@/domain/task/types/task-filter";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -37,13 +38,34 @@ export class TaskPrismaRepository implements ITaskRepository {
         take
     }: PaginationInput): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
-            skip: page * take,
+            skip: (page * take),
             take
         });
 
         return registers.map(register => this.fromDatabase({
             ...register,
-            description: register.description || undefined
+            description: register.description ?? undefined
+        }));
+    }
+
+    async filter({
+        page,
+        take,
+        title,
+        status
+    }: TaskFilter): Promise<Task[]> {
+        const registers = await this.prisma.task.findMany({
+            skip: (page * take),
+            take,
+            where: {
+                title: title ? { startsWith: `%${title}` } : undefined,
+                status: status?.value,
+            }
+        });
+
+        return registers.map(register => this.fromDatabase({
+            ...register,
+            description: register.description ?? undefined
         }));
     }
 
