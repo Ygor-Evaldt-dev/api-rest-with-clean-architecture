@@ -11,8 +11,6 @@ export class TaskFilter implements IUseCase<TaskFilterParam, PaginationOutput<Ta
     ) { }
 
     async execute(params: TaskFilterParam): Promise<PaginationOutput<Task>> {
-        const { page, take } = params;
-
         const [registers, total] = await Promise.all([
             this.repository.filter(params),
             this.repository.total(params)
@@ -21,6 +19,7 @@ export class TaskFilter implements IUseCase<TaskFilterParam, PaginationOutput<Ta
         if (registers.length <= 0)
             throw new NotFoundException("Nenhuma tarefa encontrada");
 
+        const { page, take } = params;
         return ({
             page,
             take,
