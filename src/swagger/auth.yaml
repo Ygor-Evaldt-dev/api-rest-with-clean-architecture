@@ -1,0 +1,25 @@
+/auth/login:
+  post:
+    summary: Login
+    tags:
+      - Autenticação
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            example:
+              email: email_valido@gmail.com
+              password: S3nh@forte
+    responses:
+      "200":
+        description: Ok
+      "400":
+        description: E-mail inválido
+      "401":
+        description: Senha inválida

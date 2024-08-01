@@ -1,0 +1,168 @@
+/task:
+  post:
+    summary: Cadastrar
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+            example:
+              title: Tarefa 001
+              description: Descrição da tarefa 001
+              status: "'pendente', 'em andamento' ou 'concluída'"
+    responses:
+      "201":
+        description: Cadastrado
+      "400":
+        description: Requisição ruim
+
+/task/{page}/{take}:
+  get:
+    summary: Buscar todos
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: page
+        in: path
+        schema:
+          type: number
+          example: 0
+        description: Número da página
+        required: true
+      - name: take
+        in: path
+        schema:
+          type: number
+          example: 25
+        description: Quantidade de registros por página
+        required: true
+    responses:
+      "200":
+        description: OK
+
+/task/filter/{page}/{take}:
+  get:
+    summary: Filtrar
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: page
+        in: path
+        schema:
+          type: number
+          example: 0
+        description: Número da página
+        required: true
+      - name: take
+        in: path
+        schema:
+          type: number
+          example: 25
+        description: Quantidade de registros por página
+        required: true
+      - name: title
+        in: query
+        schema:
+          type: string
+        description: Título da tarefa
+      - name: status
+        in: query
+        schema:
+          type: string
+        description: Status da tarefa
+    responses:
+      "200":
+        description: Ok
+      "404":
+        description: Não encontrado
+
+/task/{id}:
+  get:
+    summary: Buscar por ID
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      "200":
+        description: Ok
+      "400":
+        description: Não encontrado
+
+  patch:
+    summary: Atualizar
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                required: false
+              description:
+                type: string
+                required: false
+              status:
+                type: string
+                required: false
+            example:
+              title: Título da tarefa 001
+              description: Descrição da tarefa 001
+              status: "'pendente', 'em andamento' ou 'concluída'"
+    responses:
+      "200":
+        description: Ok
+      "400":
+        description: Requisição ruim
+      "404":
+        description: Não encontrado
+
+  delete:
+    summary: Excluir
+    tags:
+      - Tarefa
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      "200":
+        description: OK
+      "404":
+        description: Não encontrado

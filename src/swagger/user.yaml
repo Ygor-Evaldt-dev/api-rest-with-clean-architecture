@@ -1,0 +1,102 @@
+/user:
+  post:
+    summary: Cadastrar
+    tags:
+      - Usuário
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              name:
+                type: string
+            example:
+              email: email_valido
+              password: senha_forte
+              name: ""
+    responses:
+      "201":
+        description: Cadastrado
+      "400":
+        description: Requisição ruim
+      "409":
+        description: Conflito
+
+/user/{id}:
+  get:
+    summary: Buscar por ID
+    tags:
+      - Usuário
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      "200":
+        description: Ok
+      "404":
+        description: Não encontrado
+  patch:
+    summary: Atualizar
+    tags:
+      - Usuário
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              name:
+                type: string
+            example:
+              email: email_valido
+              password: senha_forte
+              name: qualquer
+    responses:
+      "200":
+        description: Ok
+      "400":
+        description: Requisição ruim
+      "404":
+        description: Não encontrado
+      "409":
+        description: Conflito
+
+  delete:
+    summary: Excluir
+    tags:
+      - Usuário
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      "200":
+        description: Ok
+      "404":
+        description: Não encontrado
