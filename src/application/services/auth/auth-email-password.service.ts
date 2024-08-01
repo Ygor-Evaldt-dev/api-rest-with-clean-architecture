@@ -11,7 +11,10 @@ export class AuthEmailPasswordService implements IUseCase<LoginDto, TokenDto> {
         private readonly tokenProvider: ITokenProvider
     ) { }
 
-    async execute({ email, password }: LoginDto): Promise<TokenDto> {
+    async execute({
+        email,
+        password
+    }: LoginDto): Promise<TokenDto> {
         const user = await this.userRepository.findUnique({ email: email.complete });
         if (user === null)
             throw new NotFoundException("Usuário não cadastrado");

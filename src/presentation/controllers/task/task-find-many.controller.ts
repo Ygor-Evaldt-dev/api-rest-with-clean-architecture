@@ -1,12 +1,12 @@
 import { Express, Request, Response } from "express";
-import { TaskFindManyService } from "@/application/services/task";
 import { HttpStatus } from "@/common/utils/http-status";
 import { handleRequestError } from "@/presentation/util";
+import { TaskFindMany } from "@/domain/task/use-cases";
 
 export class TaskFindManyController {
     constructor(
         private readonly server: Express,
-        private readonly findMany: TaskFindManyService,
+        private readonly findMany: TaskFindMany,
         private readonly middlewares: any[]
     ) {
         this.server.get("/task/:page/:take", ...this.middlewares, async (req: Request, res: Response) => {

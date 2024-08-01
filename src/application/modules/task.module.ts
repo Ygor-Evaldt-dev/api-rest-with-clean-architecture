@@ -1,24 +1,20 @@
 import { ITaskRepository } from "@/domain/ports";
-import { TaskCreate, TaskFindManyUseCase, TaskFindTotalUseCase, TaskFindUniqueUseCase, TaskRemoveUseCase, TaskUpdate } from "@/domain/task/use-cases";
-import { TaskCreateService, TaskUpdateService, TaskFindManyService, TaskRemoveService } from "@/application/services/task";
+import { TaskCreate, TaskFindMany, TaskFindUnique, TaskRemove, TaskUpdate } from "@/domain/task/use-cases";
 
 export class TaskModule {
     readonly create: TaskCreate;
     readonly update: TaskUpdate;
-    readonly findManyService: TaskFindManyService;
-    readonly removeService: TaskRemoveService;
+    readonly findUnique: TaskFindUnique;
+    readonly findMany: TaskFindMany;
+    readonly remove: TaskRemove;
 
     constructor(
         private readonly repository: ITaskRepository,
     ) {
-        const findUniqueUseCase = new TaskFindUniqueUseCase(this.repository);
-        const findManyUseCase = new TaskFindManyUseCase(this.repository);
-        const findTotal = new TaskFindTotalUseCase(this.repository);
-        const removeUseCase = new TaskRemoveUseCase(this.repository);
-
         this.create = new TaskCreate(this.repository);
         this.update = new TaskUpdate(this.repository);
-        this.findManyService = new TaskFindManyService(findManyUseCase, findTotal);
-        this.removeService = new TaskRemoveService(findUniqueUseCase, removeUseCase);
+        this.findUnique = new TaskFindUnique(this.repository);
+        this.findMany = new TaskFindMany(this.repository);
+        this.remove = new TaskRemove(this.repository);
     }
 }

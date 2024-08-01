@@ -74,7 +74,7 @@ export class TaskPrismaRepository implements ITaskRepository {
     }: Task) {
         return ({
             id: id.value,
-            title: title.complete,
+            title: title.complete.toLowerCase(),
             description: description?.complete,
             status: status?.value
         });

@@ -5,9 +5,7 @@ import { TaskPrismaRepository } from "@/infra/repositories/task/task-prisma.repo
 import { JwtAdapter, BcryptAdapter } from "@/infra/adapters";
 import { UserRoutes, AuthRoutes, TaskRoutes } from "@/presentation/routes";
 import { authMiddleware, uuidMiddleware } from "@/presentation/middlewars";
-import { UserModule } from "@/application/modules/user.module";
-import { AuthModule } from "@/application/modules/auth.module";
-import { TaskModule } from "@/application/services/task";
+import { UserModule, AuthModule, TaskModule } from "@/application/modules";
 
 const tokenProvider = new JwtAdapter(process.env.TOKEN_SECRET!);
 const encrypter = new BcryptAdapter();

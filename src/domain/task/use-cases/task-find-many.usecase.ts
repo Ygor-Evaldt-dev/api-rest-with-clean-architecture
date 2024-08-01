@@ -1,9 +1,10 @@
 import { ITaskRepository } from "@/domain/ports";
 import { IUseCase } from "@/domain/shared/usecase.interface";
-import { PaginationInput } from "@/domain/shared/types";
+import { PaginationInput, PaginationOutput } from "@/domain/shared/types";
 import { Task } from "@/domain/task/entity/task.entity";
+import { NotFoundException } from "@/common/exceptions";
 
-export class TaskFindManyUseCase implements IUseCase<PaginationInput, Task[]> {
+export class TaskFindMany implements IUseCase<PaginationInput, PaginationOutput<Task>> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }
@@ -11,8 +12,21 @@ export class TaskFindManyUseCase implements IUseCase<PaginationInput, Task[]> {
     async execute({
         page,
         take
-    }: PaginationInput): Promise<Task[]> {
-        const registers = await this.repository.findMany({ page, take });
-        return registers;
+    }: PaginationInput): Promise<PaginationOutput<Task>> {
+        const [registers, total] = await Promise.all([
+            this.repository.findMany({ page, take }),
+            this.repository.total()
+        ]);
+
+        if (registers.length === 0)
+            throw new NotFoundException("Nenhuma tarefa encontrada");
+
+        return ({
+            page,
+            take,
+            registers,
+            totalRegisters: total,
+            totalPages: Math.ceil(total / take)
+        });
     }
 }
