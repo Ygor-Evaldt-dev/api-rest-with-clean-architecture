@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { PaginationInput } from "@/domain/shared/types";
 import { TaskFilterParam } from "@/domain/task/types/task-filter-param";
 import { Status } from "@/domain/shared/value-objects";
-import { FilterTaskDto, FindManyDto } from "@/domain/task/dtos";
+import { FilterTaskDto, FindManyTaskDto } from "@/domain/task/dtos";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -39,7 +39,7 @@ export class TaskPrismaRepository implements ITaskRepository {
         page,
         take,
         userId
-    }: FindManyDto): Promise<Task[]> {
+    }: FindManyTaskDto): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: (page * take),
             take,

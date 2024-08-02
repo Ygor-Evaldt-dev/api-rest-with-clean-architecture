@@ -1,4 +1,4 @@
-export class FindManyDto {
+export class FindManyTaskDto {
     constructor(
         readonly page: number = 0,
         readonly take: number = 25,

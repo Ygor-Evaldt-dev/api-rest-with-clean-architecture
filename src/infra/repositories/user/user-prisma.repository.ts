@@ -1,4 +1,5 @@
 import { IUserRepository } from "@/domain/ports/user-repository.interface";
+import { FindUniqueUserDto } from "@/domain/user/dtos";
 import { User } from "@/domain/user/entity/user.entity";
 import { PrismaClient } from "@prisma/client";
 import { User as UserPrisma } from "@prisma/client";
@@ -17,10 +18,7 @@ export class UserPrismaRepository implements IUserRepository {
     async findUnique({
         id,
         email
-    }: {
-        id?: string;
-        email?: string;
-    }): Promise<User | null> {
+    }: FindUniqueUserDto): Promise<User | null> {
         const user = await this.prisma.user.findUnique({
             where: { id, email }
         });
