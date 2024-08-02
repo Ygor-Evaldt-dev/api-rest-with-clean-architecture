@@ -14,7 +14,7 @@ export class Title {
 
         const errorMessage = "O título deve conter no";
         if (this.complete.length < this.minLength)
-            throw new BadRequestException(`${errorMessage} mínimo ${this.minLength} caracteres`);
+            throw new BadRequestException(`${errorMessage} mínimo ${this.minLength} caractere`);
 
         if (this.complete.length > this.maxLength)
             throw new BadRequestException(`${errorMessage} máximo ${this.maxLength} caracteres`);

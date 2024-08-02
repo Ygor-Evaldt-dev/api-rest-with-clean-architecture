@@ -15,7 +15,8 @@ export class TaskFilterController {
                 const response = await this.filter.execute({
                     page: +page,
                     take: +take,
-                    ...req.query
+                    ...req.query,
+                    userId: (req as any).user.id.value
                 });
                 res.status(HttpStatus.OK).json(response);
             } catch (error: any) {

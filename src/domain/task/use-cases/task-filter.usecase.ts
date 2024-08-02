@@ -1,16 +1,16 @@
 import { ITaskRepository } from "@/domain/ports";
 import { IUseCase } from "@/domain/shared/usecase.interface";
 import { Task } from "@/domain/task/entity/task.entity";
-import { TaskFilterParam } from "../types/task-filter-param";
 import { NotFoundException } from "@/common/exceptions";
 import { PaginationOutput } from "@/domain/shared/types";
+import { FilterTaskDto } from "../dtos";
 
-export class TaskFilter implements IUseCase<TaskFilterParam, PaginationOutput<Task>> {
+export class TaskFilter implements IUseCase<FilterTaskDto, PaginationOutput<Task>> {
     constructor(
         private readonly repository: ITaskRepository
     ) { }
 
-    async execute(params: TaskFilterParam): Promise<PaginationOutput<Task>> {
+    async execute(params: FilterTaskDto): Promise<PaginationOutput<Task>> {
         const [registers, total] = await Promise.all([
             this.repository.filter(params),
             this.repository.total(params)

@@ -6,6 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { PaginationInput } from "@/domain/shared/types";
 import { TaskFilterParam } from "@/domain/task/types/task-filter-param";
 import { Status } from "@/domain/shared/value-objects";
+import { FilterTaskDto, FindManyDto } from "@/domain/task/dtos";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -36,11 +37,13 @@ export class TaskPrismaRepository implements ITaskRepository {
 
     async findMany({
         page,
-        take
-    }: PaginationInput): Promise<Task[]> {
+        take,
+        userId
+    }: FindManyDto): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: (page * take),
-            take
+            take,
+            where: { userId }
         });
 
         return registers.map(register => this.fromDatabase({
@@ -52,13 +55,15 @@ export class TaskPrismaRepository implements ITaskRepository {
     async filter({
         page,
         take,
+        userId,
         title,
         status
-    }: TaskFilterParam): Promise<Task[]> {
+    }: FilterTaskDto): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: (page * take),
             take,
             where: {
+                userId,
                 title: title ? { startsWith: `%${title.trim().toLowerCase()}` } : undefined,
                 status
             }
@@ -85,12 +90,13 @@ export class TaskPrismaRepository implements ITaskRepository {
         });
     }
 
-    async total(params?: TaskFilterParam): Promise<number> {
+    async total(params?: FilterTaskDto): Promise<number> {
         if (params) {
-            const { title, status } = params;
+            const { title, status, userId } = params;
 
             return await this.prisma.task.count({
                 where: {
+                    userId,
                     title: title ? { startsWith: `%${title}` } : undefined,
                     status
                 }
