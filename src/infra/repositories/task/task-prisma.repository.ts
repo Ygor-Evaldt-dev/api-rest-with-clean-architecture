@@ -59,7 +59,7 @@ export class TaskPrismaRepository implements ITaskRepository {
             skip: (page * take),
             take,
             where: {
-                title: title ? { startsWith: `%${title}` } : undefined,
+                title: title ? { startsWith: `%${title.trim().toLowerCase()}` } : undefined,
                 status
             }
         });
