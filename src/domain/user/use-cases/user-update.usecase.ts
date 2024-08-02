@@ -24,7 +24,8 @@ export class UserUpdate implements IUseCase<UpdateUserDto, void> {
         const user = new User({
             id: existingUser.id.value,
             email: email ?? existingUser.email.complete,
-            name: name
+            name,
+            password
         });
 
         const encryptPassword = password
