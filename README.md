@@ -28,8 +28,7 @@ Construída para servir aplicações web onde um usuário pode descrever e salva
 
 #### Tarefa
 ![POST](https://img.shields.io/badge/POST-blue) - **CADASTRAR**: Permite adicionar uma nova tarefa.<br/>
-![GET](https://img.shields.io/badge/GET-brightgreen) - **BUSCAR TODOS**: Recupera a lista de todas as tarefas do usuário autenticado.<br/>
-![GET](https://img.shields.io/badge/GET-brightgreen) - **FILTRAR**: Permite filtrar tarefas do usuário autenticado com base em parâmetros específicos.<br/>
+![GET](https://img.shields.io/badge/GET-brightgreen) - **BUSCAR**: Recupera a lista de todas as tarefas do usuário autenticado.<br/>
 ![GET](https://img.shields.io/badge/GET-brightgreen) - **BUSCAR POR ID**: Recupera uma tarefa pelo seu ID.<br/>
 ![PATCH](https://img.shields.io/badge/PATCH-yellow) - **ATUALIZAR**: Permite modificar informações de uma tarefa existente.<br/>
 ![DELETE](https://img.shields.io/badge/DELETE-red) - **EXCLUIR**: Permite excluir uma tarefa.<br/>

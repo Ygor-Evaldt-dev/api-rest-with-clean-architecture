@@ -60,6 +60,5 @@ describe("task find many use case", () => {
         expect(totalPages).toBe(2);
         expect(registers[0].id).toBeDefined();
         expect(registers.length).toBe(take);
-
     });
 });
