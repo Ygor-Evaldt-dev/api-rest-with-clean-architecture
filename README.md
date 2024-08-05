@@ -111,6 +111,10 @@ DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:$
 3 - Copie o token de autenticação, navegue até o inicio da página do swagger, clique no botão 'Authorize' e cole o token no campo de entrada.<br/>
 4 - Feito todos os passos descritos acima, os serviços autenticados estarão disponíveis para útilização<br/>
 
+## Contribua
+
+### Testes
+Até a data atual (05-08-2024), foram implementados apenas testes unitários e de integração de forma básica neste projeto, há muito o que melhorar na camada de testes, sinta-se a vontade para contribuir com este projeto melhorando a camada de teste ou adicionando novas features. Envie seu pull request !! :D.
 
 ## Licença
 
