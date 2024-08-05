@@ -3,10 +3,7 @@ import { Task } from "@/domain/task/entity/task.entity";
 import { TaskDto } from "./task.dto";
 import { StatusEnum } from "@/domain/shared/enums/status.enum";
 import { PrismaClient } from "@prisma/client";
-import { PaginationInput } from "@/domain/shared/types";
-import { TaskFilterParam } from "@/domain/task/types/task-filter-param";
-import { Status } from "@/domain/shared/value-objects";
-import { FilterTaskDto, FindManyTaskDto } from "@/domain/task/dtos";
+import { FindManyTaskDto } from "@/domain/task/dtos";
 
 export class TaskPrismaRepository implements ITaskRepository {
     constructor(
@@ -38,27 +35,10 @@ export class TaskPrismaRepository implements ITaskRepository {
     async findMany({
         page,
         take,
-        userId
+        filter = {}
     }: FindManyTaskDto): Promise<Task[]> {
-        const registers = await this.prisma.task.findMany({
-            skip: (page * take),
-            take,
-            where: { userId }
-        });
+        const { title, status, userId } = filter;
 
-        return registers.map(register => this.fromDatabase({
-            ...register,
-            description: register.description ?? undefined
-        }));
-    }
-
-    async filter({
-        page,
-        take,
-        userId,
-        title,
-        status
-    }: FilterTaskDto): Promise<Task[]> {
         const registers = await this.prisma.task.findMany({
             skip: (page * take),
             take,
@@ -90,9 +70,11 @@ export class TaskPrismaRepository implements ITaskRepository {
         });
     }
 
-    async total(params?: FilterTaskDto): Promise<number> {
-        if (params) {
-            const { title, status, userId } = params;
+    async total({
+        filter
+    }: FindManyTaskDto): Promise<number> {
+        if (filter) {
+            const { title, status, userId } = filter;
 
             return await this.prisma.task.count({
                 where: {

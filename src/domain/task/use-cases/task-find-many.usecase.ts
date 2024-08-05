@@ -10,19 +10,16 @@ export class TaskFindMany implements IUseCase<PaginationInput, PaginationOutput<
         private readonly repository: ITaskRepository
     ) { }
 
-    async execute({
-        page,
-        take,
-        userId
-    }: FindManyTaskDto): Promise<PaginationOutput<Task>> {
+    async execute(dto: FindManyTaskDto): Promise<PaginationOutput<Task>> {
         const [registers, total] = await Promise.all([
-            this.repository.findMany({ page, take, userId }),
-            this.repository.total()
+            this.repository.findMany(dto),
+            this.repository.total(dto)
         ]);
 
         if (registers.length === 0)
             throw new NotFoundException("Nenhuma tarefa encontrada");
 
+        const { page, take } = dto;
         return ({
             page,
             take,

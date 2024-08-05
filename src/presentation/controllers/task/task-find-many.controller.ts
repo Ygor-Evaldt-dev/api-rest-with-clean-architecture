@@ -15,8 +15,12 @@ export class TaskFindManyController {
                 const response = await this.findMany.execute({
                     page: +page,
                     take: +take,
-                    userId: (req as any).user.id.value
+                    filter: {
+                        ...req.query,
+                        userId: (req as any).user.id.value
+                    }
                 });
+
                 res.status(HttpStatus.OK).json(response);
             } catch (error: any) {
                 handleRequestError(res, error);

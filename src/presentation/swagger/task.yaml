@@ -29,33 +29,7 @@
 
 /task/{page}/{take}:
   get:
-    summary: Buscar todos
-    tags:
-      - Tarefa
-    security:
-      - bearerAuth: []
-    parameters:
-      - name: page
-        in: path
-        schema:
-          type: number
-          example: 0
-        description: Número da página
-        required: true
-      - name: take
-        in: path
-        schema:
-          type: number
-          example: 25
-        description: Quantidade de registros por página
-        required: true
-    responses:
-      "200":
-        description: OK
-
-/task/filter/{page}/{take}:
-  get:
-    summary: Filtrar
+    summary: Buscar
     tags:
       - Tarefa
     security:
@@ -80,16 +54,16 @@
         schema:
           type: string
         description: Título da tarefa
+        required: false
       - name: status
         in: query
         schema:
           type: string
         description: Status da tarefa
+        required: false
     responses:
       "200":
-        description: Ok
-      "404":
-        description: Não encontrado
+        description: OK
 
 /task/{id}:
   get:
