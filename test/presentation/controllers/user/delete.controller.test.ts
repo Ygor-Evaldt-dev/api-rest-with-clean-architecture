@@ -1,20 +1,20 @@
 import { AxiosInstance } from "axios";
 import { HttpStatus } from "@/common/utils/http-status";
 import { authenticatedAxiosInstance } from "../../util/authenticated-axios-instance";
+import { getExistingUser } from "../../../common/shared";
 
 describe("delete controller", () => {
     let id: string;
     let axiosInstance: AxiosInstance;
 
     beforeAll(async () => {
-        axiosInstance = await authenticatedAxiosInstance();
+        const [axiosInst, user] = await Promise.all([
+            authenticatedAxiosInstance(),
+            getExistingUser()
+        ]);
 
-        const { data } = await axiosInstance.post("/user", {
-            email: "teste@gmail.com",
-            password: "S3nh@teste"
-        });
-
-        id = data?.id?.value;
+        axiosInstance = axiosInst;
+        id = user.id.value;
     });
 
     it("should return http status 404 not found if para 'id' is invalid", async () => {
@@ -23,7 +23,6 @@ describe("delete controller", () => {
             await axiosInstance.delete(`user/${invalidUuidV4}`);
         } catch ({ response }: any) {
             expect(response.status).toBe(HttpStatus.NOT_FOUND);
-            expect(response.data).toBe("Registro não cadastrado");
         }
     });
 

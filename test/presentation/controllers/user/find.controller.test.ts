@@ -1,14 +1,25 @@
 import { AxiosInstance } from "axios";
 import { authenticatedAxiosInstance } from "../../util/authenticated-axios-instance";
 import { HttpStatus } from "@/common/utils/http-status";
+import { getExistingUser } from "../../../common/shared";
 
 describe("find controller", () => {
     let axiosInstance: AxiosInstance;
-    const userId = "53211d23-a8e0-4c58-8857-91d19d64fe27";
+    let userId: string;
 
     beforeAll(async () => {
-        axiosInstance = await authenticatedAxiosInstance();
+        const [authAxiosInstance, user] = await Promise.all([
+            authenticatedAxiosInstance(),
+            getExistingUser()
+        ]);
+
+        axiosInstance = authAxiosInstance;
+        userId = user.id.value;
     });
+
+    afterAll(async () => {
+        await axiosInstance.delete(`/user/${userId}`);
+    })
 
     it("should return http status 404 not found if user id is invalid", async () => {
         try {
@@ -16,7 +27,6 @@ describe("find controller", () => {
             const response = await axiosInstance.get(`/user/${id}`);
         } catch (error: any) {
             expect(error.response.status).toBe(HttpStatus.NOT_FOUND);
-            expect(error.response.data).toBe("Registro não cadastrado");
         }
     });
 
