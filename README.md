@@ -1,5 +1,4 @@
 # API REST - Lista de tarefas
-![Em Desenvolvimento](https://img.shields.io/badge/Em_Desenvolvimento-yellow?style=flat-square)
 ![Versão](https://img.shields.io/badge/Versão-1.0.0-blue?style=flat-square)
 
 ## Apresentação
